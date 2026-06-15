@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { UserProfile } from '../../types';
+import { supabase } from '../../services/supabase';
+import { useAuth } from './AuthContext';
 
 interface UserContextType {
   user: UserProfile;
@@ -18,10 +20,13 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 const L_USER = 'spartanbet_user';
 
 export const UserProvider: React.FC<{ children: ReactNode; onToast: (msg: string, type?: 'success'|'error'|'info') => void }> = ({ children, onToast }) => {
+  const { user: authUser } = useAuth();
+  const userId = authUser?.id;
+
   const [user, setUser] = useState<UserProfile>(() => {
     const saved = localStorage.getItem(L_USER);
     if (saved) return JSON.parse(saved);
-    return { name: 'Aurele', role: 'free', theme: 'dark', language: 'fr' };
+    return { name: 'Spartan', role: 'free', theme: 'dark', language: 'fr' };
   });
 
   const [isOnboardingActive, setOnboardingActive] = useState(() => {
@@ -36,6 +41,36 @@ export const UserProvider: React.FC<{ children: ReactNode; onToast: (msg: string
   const [onboardingStep, setOnboardingStep] = useState(0);
 
   useEffect(() => {
+    if (!userId) return;
+
+    const fetchProfile = async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error) {
+        console.error('[SpartanBet] fetch profile error:', error.message);
+        return;
+      }
+
+      if (data) {
+        const loadedUser: UserProfile = {
+          name: data.name,
+          role: data.role,
+          language: data.language,
+          theme: data.theme,
+          hasCompletedOnboarding: data.has_completed_onboarding
+        };
+        setUser(loadedUser);
+        setOnboardingActive(!loadedUser.hasCompletedOnboarding);
+      }
+    };
+    fetchProfile();
+  }, [userId]);
+
+  useEffect(() => {
     localStorage.setItem(L_USER, JSON.stringify(user));
     if (user.theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -44,28 +79,35 @@ export const UserProvider: React.FC<{ children: ReactNode; onToast: (msg: string
     }
   }, [user]);
 
-  const setLanguage = (lang: 'fr' | 'en') => {
+  const setLanguage = async (lang: 'fr' | 'en') => {
     setUser(prev => ({ ...prev, language: lang }));
+    if (userId) {
+      await supabase.from('profiles').update({ language: lang }).eq('id', userId);
+    }
   };
 
-  const setTheme = (theme: 'dark' | 'light') => {
+  const setTheme = async (theme: 'dark' | 'light') => {
     setUser(prev => ({ ...prev, theme }));
+    if (userId) {
+      await supabase.from('profiles').update({ theme }).eq('id', userId);
+    }
   };
 
-  const togglePremium = () => {
-    setUser(prev => {
-      const newRole = prev.role === 'free' ? 'premium' : 'free';
-      onToast(
-        prev.language === 'fr'
-          ? `Status Premium ${newRole === 'premium' ? 'Activé 💎' : 'Désactivé'}`
-          : `Premium Status ${newRole === 'premium' ? 'Activated 💎' : 'Deactivated'}`,
-        'success'
-      );
-      return { ...prev, role: newRole };
-    });
+  const togglePremium = async () => {
+    const newRole = user.role === 'free' ? 'premium' : 'free';
+    setUser(prev => ({ ...prev, role: newRole }));
+    onToast(
+      user.language === 'fr'
+        ? `Status Premium ${newRole === 'premium' ? 'Activé 💎' : 'Désactivé'}`
+        : `Premium Status ${newRole === 'premium' ? 'Activated 💎' : 'Deactivated'}`,
+      'success'
+    );
+    if (userId) {
+      await supabase.from('profiles').update({ role: newRole }).eq('id', userId);
+    }
   };
 
-  const completeOnboarding = () => {
+  const completeOnboarding = async () => {
     setUser(prev => ({ ...prev, hasCompletedOnboarding: true }));
     setOnboardingActive(false);
     onToast(
@@ -74,6 +116,9 @@ export const UserProvider: React.FC<{ children: ReactNode; onToast: (msg: string
         : '🛡️ Onboarding complete! Navigate around the premium app.',
       'success'
     );
+    if (userId) {
+      await supabase.from('profiles').update({ has_completed_onboarding: true }).eq('id', userId);
+    }
   };
 
   return (

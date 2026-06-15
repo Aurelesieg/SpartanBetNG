@@ -6,8 +6,10 @@ import {
   Bell, Flame, AlertCircle, ToggleLeft, ToggleRight, Laptop, HelpCircle, ChevronRight
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useAuth } from '../../store/contexts/AuthContext';
 
 export const ProfileSettings: React.FC = () => {
+  const { signOut } = useAuth();
   const { 
     user, bankroll, setLanguage, setTheme, togglePremium, 
     activateBankroll, adjustBankrollBalance, resetBankroll,
@@ -91,6 +93,15 @@ export const ProfileSettings: React.FC = () => {
               >
                 <Sun className="w-4 h-4" />
                 <span>{isFr ? 'Clair' : 'Light'}</span>
+              </button>
+            </div>
+
+            <div className="pt-6">
+              <button
+                onClick={signOut}
+                className="w-full py-3 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-400 text-xs font-bold uppercase tracking-wider hover:bg-rose-500/20 transition-all cursor-pointer"
+              >
+                {isFr ? 'Se déconnecter' : 'Sign Out'}
               </button>
             </div>
           </div>

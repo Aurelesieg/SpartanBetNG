@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { MatchAnalysis } from '../../types';
-import { INITIAL_ANALYSES } from '../mockData';
+import { supabase } from '../../services/supabase';
 
 interface AnalysesContextType {
   analyses: MatchAnalysis[];
+  isLoading: boolean;
   fetchStatus: 'idle' | 'loading' | 'success' | 'error';
   lastFetched: number | null;
   selectedAnalysis: MatchAnalysis | null;
@@ -22,13 +23,63 @@ export const AnalysesProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [spartanAnalyses, setSpartanAnalyses] = useState<MatchAnalysis[]>(() => {
     const saved = localStorage.getItem(L_SPARTAN_ANALYSES);
     if (saved) return JSON.parse(saved);
-    return INITIAL_ANALYSES;
+    return [];
   });
 
   const [liveFixtures, setLiveFixtures] = useState<MatchAnalysis[]>([]);
   const [fetchStatus, setFetchStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [lastFetched, setLastFetched] = useState<number | null>(null);
   const [selectedAnalysis, setSelectedAnalysis] = useState<MatchAnalysis | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchSpartanAnalyses = async () => {
+    const { data, error } = await supabase
+      .from('analyses')
+      .select('*')
+      .order('published_at', { ascending: false });
+
+    if (error) {
+      console.error('[SpartanBet] fetch spartan analyses error:', error.message);
+    } else if (data) {
+      const mappedAnalyses: MatchAnalysis[] = data.map((d: any) => ({
+        id: d.id,
+        homeTeam: d.home_team,
+        awayTeam: d.away_team,
+        sport: d.sport,
+        league: d.league,
+        startTime: d.start_time,
+        prediction: d.prediction,
+        odds: d.odds,
+        confidence: d.confidence,
+        category: d.category,
+        analysisText: d.analysis_text,
+        detailedAnalysis: d.detailed_analysis || [],
+        isPremium: d.is_premium,
+        status: d.status,
+        liveScore: d.live_score,
+        liveMinute: d.live_minute
+      }));
+      setSpartanAnalyses(mappedAnalyses);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchSpartanAnalyses();
+
+    const channel = supabase
+      .channel('analyses_changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'analyses' },
+        (payload) => {
+          fetchSpartanAnalyses();
+        }
+      )
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(L_SPARTAN_ANALYSES, JSON.stringify(spartanAnalyses));
@@ -103,15 +154,33 @@ export const AnalysesProvider: React.FC<{ children: ReactNode }> = ({ children }
     await fetchLiveFixtures();
   };
 
-  const pushSpartanAnalysis = (analysis: MatchAnalysis) => {
+  const pushSpartanAnalysis = async (analysis: MatchAnalysis) => {
     setSpartanAnalyses(prev => [analysis, ...prev.filter(a => a.id !== analysis.id)]);
+
+    await supabase.from('analyses').upsert({
+      id: analysis.id,
+      home_team: analysis.homeTeam,
+      away_team: analysis.awayTeam,
+      sport: analysis.sport,
+      league: analysis.league,
+      start_time: analysis.startTime,
+      prediction: analysis.prediction,
+      odds: analysis.odds,
+      confidence: analysis.confidence,
+      category: analysis.category,
+      analysis_text: analysis.analysisText,
+      detailed_analysis: analysis.detailedAnalysis,
+      is_premium: analysis.isPremium,
+      status: analysis.status
+    });
   };
 
-  const removeSpartanAnalysis = (id: string) => {
+  const removeSpartanAnalysis = async (id: string) => {
     setSpartanAnalyses(prev => prev.filter(a => a.id !== id));
+    await supabase.from('analyses').delete().eq('id', id);
   };
 
-  const clearSpartanAnalyses = () => {
+  const clearSpartanAnalyses = async () => {
     setSpartanAnalyses([]);
   };
 
@@ -124,6 +193,7 @@ export const AnalysesProvider: React.FC<{ children: ReactNode }> = ({ children }
   return (
     <AnalysesContext.Provider value={{
       analyses,
+      isLoading,
       fetchStatus,
       lastFetched,
       selectedAnalysis,

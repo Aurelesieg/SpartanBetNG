@@ -10,6 +10,8 @@ import { SpartanSchool } from './components/features/SpartanSchool';
 import { ProfileSettings } from './components/features/ProfileSettings';
 import { ToastContainer } from './components/ui/ToastContainer';
 import { OnboardingTutorial } from './components/features/OnboardingTutorial';
+import { useAuth } from './store/contexts/AuthContext';
+import { AuthPage } from './components/auth/AuthPage';
 
 export const ROUTES = {
   dashboard: '/',
@@ -25,6 +27,7 @@ const MainLayout: React.FC = () => {
   const { user, setActiveTab, activeTab } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
     const map: Record<string, ActiveTab> = {
@@ -43,6 +46,20 @@ const MainLayout: React.FC = () => {
       navigate(ROUTES[activeTab]);
     }
   }, [activeTab, navigate, location.pathname]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
+        <div className="text-orange-500 font-mono text-sm animate-pulse">
+          SPARTAN BET — Chargement...
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AuthPage />;
+  }
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-200 ${

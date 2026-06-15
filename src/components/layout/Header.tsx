@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleQuickAddSubmit = (e: React.FormEvent) => {
+  const handleQuickAddSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsedOdds = parseFloat(odds);
     const parsedStake = parseFloat(stakeAmount);
@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
       return;
     }
 
-    const res = addCustomBet({
+    const res = await addCustomBet({
       homeTeam,
       awayTeam,
       prediction,
