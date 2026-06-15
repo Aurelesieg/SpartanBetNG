@@ -1,0 +1,6 @@
+{
+  "name": "Spartanbet",
+  "description": "Spartanbet Front-End Dashboard & Performance Tracker Blueprint",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
