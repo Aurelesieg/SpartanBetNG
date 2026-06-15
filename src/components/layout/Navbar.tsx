@@ -1,9 +1,13 @@
 import React from 'react';
 import { useApp } from '../../store/AppContext';
 import { LayoutDashboard, Target, TrendingUp, GraduationCap, User, ShieldCheck } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ROUTES } from '../../App';
 
 export const Navbar: React.FC = () => {
-  const { activeTab, setActiveTab, user } = useApp();
+  const { setActiveTab, user } = useApp();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const isFr = user.language === 'fr';
 
@@ -72,12 +76,16 @@ export const Navbar: React.FC = () => {
           <nav className="flex flex-col gap-1.5" id="desktop-nav">
             {navItems.map(item => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
+              const route = ROUTES[item.id as keyof typeof ROUTES];
+              const isActive = location.pathname === route || (route === '/' && location.pathname === '');
               return (
                 <button
                   key={item.id}
                   id={`nav-desktop-${item.id}`}
-                  onClick={() => setActiveTab(item.id)}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    navigate(route);
+                  }}
                   className={`w-full flex items-center justify-between px-4 py-3 rounded uppercase tracking-wider font-semibold text-xs transition-all duration-150 cursor-pointer ${
                     isActive
                       ? 'bg-orange-600 text-white shadow-[0_4px_12px_rgba(249,115,22,0.25)] font-bold'
@@ -121,12 +129,16 @@ export const Navbar: React.FC = () => {
       >
         {navItems.map(item => {
           const Icon = item.icon;
-          const isActive = activeTab === item.id;
+          const route = ROUTES[item.id as keyof typeof ROUTES];
+          const isActive = location.pathname === route || (route === '/' && location.pathname === '');
           return (
             <button
               key={item.id}
               id={`nav-mobile-${item.id}`}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                setActiveTab(item.id);
+                navigate(route);
+              }}
               className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all duration-150 relative cursor-pointer ${
                 isActive 
                   ? 'text-orange-500 font-black' 

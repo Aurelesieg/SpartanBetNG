@@ -78,3 +78,8 @@ export interface SchoolLesson {
   content: string[];
   isCompleted: boolean;
 }
+
+export interface BetResolution {
+  betId: string;
+  outcome: 'won' | 'lost';
+}

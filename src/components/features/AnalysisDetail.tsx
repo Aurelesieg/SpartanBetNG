@@ -42,7 +42,7 @@ export const AnalysisDetail: React.FC = () => {
   const isInvalid = finalStakeAmount <= 0 || isNaN(finalStakeAmount);
 
   // Handle Bet confirmation submission
-  const handleConfirmFollow = () => {
+  const handleConfirmFollow = async () => {
     if (!activeAnalysis) return;
     
     if (isOutOfFunds) {
@@ -56,7 +56,7 @@ export const AnalysisDetail: React.FC = () => {
     }
 
     // Call follow bet state mutation
-    const result = followBet(activeAnalysis.id, finalStakeAmount, followNotes, followTags);
+    const result = await followBet(activeAnalysis.id, finalStakeAmount, followNotes, followTags);
     
     if (result.success) {
       setFollowNotes('');

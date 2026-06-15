@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useEffect, useMemo, ReactNode } from 'react';
 import { ToastProvider, useToast, ToastItem } from './contexts/ToastContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { UserProvider, useUser } from './contexts/UserContext';
 import { BankrollProvider, useBankroll } from './contexts/BankrollContext';
 import { BetsProvider, useBets } from './contexts/BetsContext';
 import { AnalysesProvider, useAnalyses } from './contexts/AnalysesContext';
 import { NotificationsProvider, useNotifications } from './contexts/NotificationsContext';
 import { UIProvider, useUI } from './contexts/UIContext';
-import { UserProfile, Bankroll, MatchAnalysis, FollowedBet, SchoolLesson, AppNotification, NotificationPrefs, SportType } from '../types';
+import { UserProfile, Bankroll, MatchAnalysis, FollowedBet, SchoolLesson, AppNotification, NotificationPrefs, SportType, BetResolution } from '../types';
 
 interface AppContextType {
   // User Profile
@@ -29,7 +30,7 @@ interface AppContextType {
   
   // Followed Bets State
   followedBets: FollowedBet[];
-  followBet: (analysisId: string, stakeAmount: number, notes?: string, psychologicalTags?: string[]) => { success: boolean; error?: string };
+  followBet: (analysisId: string, stakeAmount: number, notes?: string, psychologicalTags?: string[]) => Promise<{ success: boolean; error?: string }>;
   addCustomBet: (bet: {
     homeTeam: string;
     awayTeam: string;
@@ -39,8 +40,8 @@ interface AppContextType {
     status: 'pending' | 'won' | 'lost';
     notes?: string;
     psychologicalTags?: string[];
-    sport: SportType;
-  }) => { success: boolean; error?: string };
+    sport?: SportType;
+  }) => Promise<{ success: boolean; error?: string }>;
   isBetFollowed: (analysisId: string) => boolean;
   updateBetNotesAndTags: (betId: string, notes: string, psychologicalTags: string[]) => void;
   
@@ -61,6 +62,8 @@ interface AppContextType {
   setSelectedAnalysis: (match: MatchAnalysis | null) => void;
   showFollowModal: boolean;
   setShowFollowModal: (show: boolean) => void;
+  showQuickAdd: boolean;
+  setShowQuickAdd: (show: boolean) => void;
 
   // Notification states
   notifications: AppNotification[];
@@ -70,7 +73,7 @@ interface AppContextType {
   markNotificationAsRead: (id: string) => void;
   markAllNotificationsAsRead: () => void;
   clearNotifications: () => void;
-  resolvePendingBets: () => void;
+  resolvePendingBets: (resolutions: BetResolution[]) => void;
   requestDesktopNotifications: () => Promise<boolean>;
 
   // Onboarding states
@@ -116,14 +119,14 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, [bankrollCtx.bankroll.balance, notificationsCtx.notificationPrefs.bankrollThreshold, notificationsCtx.notificationPrefs.bankrollThresholdValue]);
 
   // Orchestrate: followBet
-  const followBet = (analysisId: string, stakeAmount: number, notes?: string, psychologicalTags?: string[]) => {
+  const followBet = async (analysisId: string, stakeAmount: number, notes?: string, psychologicalTags?: string[]) => {
     const analysis = analysesCtx.analyses.find(a => a.id === analysisId);
     if (!analysis) {
       toastCtx.addToast(isFr ? "Analyse introuvable" : "Analysis not found", 'error');
       return { success: false, error: 'Analysis not found' };
     }
 
-    const res = betsCtx.followBet(analysis, bankrollCtx.bankroll.balance, stakeAmount, bankrollCtx.bankroll.currency, notes, psychologicalTags);
+    const res = await betsCtx.followBet(analysis, bankrollCtx.bankroll.balance, stakeAmount, bankrollCtx.bankroll.currency, notes, psychologicalTags);
     if (res.success) {
       bankrollCtx.applyBetStake(stakeAmount);
       const stakePercent = bankrollCtx.bankroll.balance > 0 ? (stakeAmount / bankrollCtx.bankroll.balance) * 100 : 0;
@@ -151,7 +154,7 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   // Orchestrate: addCustomBet
-  const addCustomBet = (bet: {
+  const addCustomBet = async (bet: {
     homeTeam: string;
     awayTeam: string;
     prediction: string;
@@ -160,9 +163,9 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
     status: 'pending' | 'won' | 'lost';
     notes?: string;
     psychologicalTags?: string[];
-    sport: SportType;
+    sport?: SportType;
   }) => {
-    const res = betsCtx.addCustomBet(bet, bankrollCtx.bankroll.balance, bankrollCtx.bankroll.currency);
+    const res = await betsCtx.addCustomBet({ ...bet, sport: bet.sport ?? 'football' }, bankrollCtx.bankroll.balance, bankrollCtx.bankroll.currency);
 
     if (res.success) {
       if (bet.status === 'pending' || bet.status === 'lost') {
@@ -197,8 +200,8 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   // Orchestrate: resolvePendingBets
-  const resolvePendingBets = () => {
-    const res = betsCtx.resolvePendingBets();
+  const resolvePendingBets = async (resolutions: BetResolution[]) => {
+    const res = await betsCtx.resolvePendingBets(resolutions);
 
     if (res.updates.length > 0) {
       if (res.totalReturns > 0) {
@@ -304,6 +307,8 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
       setSelectedAnalysis: analysesCtx.setSelectedAnalysis,
       showFollowModal: uiCtx.showFollowModal,
       setShowFollowModal: uiCtx.setShowFollowModal,
+      showQuickAdd: uiCtx.showQuickAdd,
+      setShowQuickAdd: uiCtx.setShowQuickAdd,
 
       // Notification states
       notifications: notificationsCtx.notifications,
@@ -330,11 +335,13 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
 // Layered Provider wrapping component
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <ToastProvider>
-      <ToastContextWrapper>
-        {children}
-      </ToastContextWrapper>
-    </ToastProvider>
+    <AuthProvider>
+      <ToastProvider>
+        <ToastContextWrapper>
+          {children}
+        </ToastContextWrapper>
+      </ToastProvider>
+    </AuthProvider>
   );
 };
 

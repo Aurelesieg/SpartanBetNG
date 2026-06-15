@@ -7,14 +7,13 @@ export const Header: React.FC = () => {
   const { 
     user, bankroll, togglePremium, setLanguage, setTheme,
     notifications, markNotificationAsRead, markAllNotificationsAsRead, clearNotifications,
-    setActiveTab, addCustomBet
+    setActiveTab, addCustomBet, showQuickAdd, setShowQuickAdd
   } = useApp();
 
   const isFr = user.language === 'fr';
   const [isOpen, setIsOpen] = useState(false);
 
   // Quick Add Bet Modal State
-  const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
   const [prediction, setPrediction] = useState('');
@@ -25,7 +24,7 @@ export const Header: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleQuickAddSubmit = (e: React.FormEvent) => {
+  const handleQuickAddSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsedOdds = parseFloat(odds);
     const parsedStake = parseFloat(stakeAmount);
@@ -48,7 +47,7 @@ export const Header: React.FC = () => {
       return;
     }
 
-    const res = addCustomBet({
+    const res = await addCustomBet({
       homeTeam,
       awayTeam,
       prediction,
@@ -70,7 +69,7 @@ export const Header: React.FC = () => {
       setNotesInput('');
       setSelectedTags([]);
       setErrorMsg('');
-      setIsQuickAddOpen(false);
+      setShowQuickAdd(false);
     } else if (res.error) {
       setErrorMsg(res.error);
     }
@@ -142,7 +141,7 @@ export const Header: React.FC = () => {
           {bankroll.isActive && (
             <button
               id="quick-add-bet-btn"
-              onClick={() => setIsQuickAddOpen(true)}
+              onClick={() => setShowQuickAdd(true)}
               className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded bg-orange-600/10 border border-orange-500/20 hover:border-orange-500/50 hover:bg-orange-600/20 text-orange-400 transition-all cursor-pointer uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] focus:outline-none"
               title={isFr ? 'Ajouter rapidement un pari' : 'Quickly record custom bet ticket'}
             >
@@ -348,14 +347,14 @@ export const Header: React.FC = () => {
 
       {/* Quick Add Bet Modal */}
       <AnimatePresence>
-        {isQuickAddOpen && (
+        {showQuickAdd && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsQuickAddOpen(false)}
+              onClick={() => setShowQuickAdd(false)}
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
 
@@ -387,7 +386,7 @@ export const Header: React.FC = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => setIsQuickAddOpen(false)}
+                  onClick={() => setShowQuickAdd(false)}
                   className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
                 >
                   <X className="w-4 h-4" strokeWidth={2.5} />
@@ -621,7 +620,7 @@ export const Header: React.FC = () => {
                 <div className="grid grid-cols-2 gap-3 pt-2">
                   <button
                     type="button"
-                    onClick={() => setIsQuickAddOpen(false)}
+                    onClick={() => setShowQuickAdd(false)}
                     className="py-2.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 hover:text-white text-neutral-400 text-xs font-bold uppercase tracking-wider font-mono transition-all cursor-pointer"
                   >
                     {isFr ? 'Annuler' : 'Cancel'}

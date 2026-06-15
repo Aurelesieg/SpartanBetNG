@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useApp } from '../../store/AppContext';
 import { 
   User, Settings, Coins, ShieldAlert, Sparkles, 
-  Trash2, RefreshCw, Languages, Sun, Moon, CheckCircle,
+  Trash2, RefreshCw, Languages, Sun, Moon, CheckCircle, XCircle,
   Bell, Flame, AlertCircle, ToggleLeft, ToggleRight, Laptop, HelpCircle, ChevronRight
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useAuth } from '../../store/contexts/AuthContext';
 
 export const ProfileSettings: React.FC = () => {
+  const { signOut } = useAuth();
   const { 
     user, bankroll, setLanguage, setTheme, togglePremium, 
     activateBankroll, adjustBankrollBalance, resetBankroll,
@@ -16,6 +18,9 @@ export const ProfileSettings: React.FC = () => {
   } = useApp();
 
   const isFr = user.language === 'fr';
+  const [resolutions, setResolutions] = useState<Record<string, 'won' | 'lost'>>({});
+
+  const pendingBets = followedBets.filter(b => b.status === 'pending');
 
   // Local state form variables
   const [initAmount, setInitAmount] = useState<number>(bankroll.initialBalance);
@@ -88,6 +93,15 @@ export const ProfileSettings: React.FC = () => {
               >
                 <Sun className="w-4 h-4" />
                 <span>{isFr ? 'Clair' : 'Light'}</span>
+              </button>
+            </div>
+
+            <div className="pt-6">
+              <button
+                onClick={signOut}
+                className="w-full py-3 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-400 text-xs font-bold uppercase tracking-wider hover:bg-rose-500/20 transition-all cursor-pointer"
+              >
+                {isFr ? 'Se déconnecter' : 'Sign Out'}
               </button>
             </div>
           </div>
@@ -186,11 +200,11 @@ export const ProfileSettings: React.FC = () => {
                   onChange={(e) => setCurrencyCode(e.target.value)}
                   className="bg-[#0A0A0B] border border-white/5 rounded-lg p-2.5 w-full text-xs font-mono text-white text-center font-bold focus:outline-none focus:border-orange-500"
                 >
+                  <option value="₦">NGN (₦)</option>
                   <option value="€">EUR (€)</option>
                   <option value="$">USD ($)</option>
                   <option value="£">GBP (£)</option>
                   <option value="₣">CHF (₣)</option>
-                  <option value="₦">NGN (₦)</option>
                 </select>
               </div>
             </div>
@@ -373,28 +387,69 @@ export const ProfileSettings: React.FC = () => {
             </div>
 
             <div className="space-y-3 pt-3">
-              {/* Trigger: Resolve Pending Bets */}
-              <button
-                onClick={resolvePendingBets}
-                className="w-full flex items-center justify-between p-3 bg-[#131316] hover:bg-stone-900 border border-white/5 rounded-lg text-left transition-all cursor-pointer group"
-              >
-                <div>
-                  <span className="block text-xs font-bold text-white group-hover:text-orange-500 transition-colors">
-                    {isFr ? '⚡ Résoudre les Paris Suspendus' : '⚡ Grade Pending Bets'}
+              {/* Admin UI: Manual Bet Resolution */}
+              <div className="w-full p-3 bg-[#131316] border border-white/5 rounded-lg">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="block text-xs font-bold text-white">
+                    {isFr ? '⚡ Résolution des Paris Suspendus' : '⚡ Pending Bets Resolution'}
                   </span>
-                  <span className="block text-[10px] text-neutral-400">
-                    {isFr 
-                      ? 'Attribue un résultat gagné/perdu aux paris suivis' 
-                      : 'Assign Won/Lost status to followed wagers'}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
                   <span className="bg-orange-500/10 text-orange-400 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
-                    {followedBets.filter(b => b.status === 'pending').length}
+                    {pendingBets.length} {isFr ? 'en attente' : 'pending'}
                   </span>
-                  <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:translate-x-1 transition-transform shrink-0" />
                 </div>
-              </button>
+
+                {pendingBets.length > 0 ? (
+                  <div className="space-y-3">
+                    {pendingBets.map(bet => (
+                      <div key={bet.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded bg-[#0A0A0B] border border-white/5 gap-2">
+                        <div>
+                          <p className="text-[10px] font-bold text-white font-mono">{bet.homeTeam} vs {bet.awayTeam}</p>
+                          <p className="text-[9px] text-neutral-400">{bet.prediction} @ {bet.odds.toFixed(2)}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => setResolutions(prev => ({ ...prev, [bet.id]: 'won' }))}
+                            className={`px-2 py-1 rounded text-[9px] font-bold font-mono transition-colors border flex items-center gap-1 cursor-pointer ${
+                              resolutions[bet.id] === 'won'
+                                ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50'
+                                : 'bg-transparent text-neutral-500 border-white/10 hover:border-emerald-500/50 hover:text-emerald-400'
+                            }`}
+                          >
+                            <CheckCircle className="w-3 h-3" /> {isFr ? 'Gagné' : 'Won'}
+                          </button>
+                          <button
+                            onClick={() => setResolutions(prev => ({ ...prev, [bet.id]: 'lost' }))}
+                            className={`px-2 py-1 rounded text-[9px] font-bold font-mono transition-colors border flex items-center gap-1 cursor-pointer ${
+                              resolutions[bet.id] === 'lost'
+                                ? 'bg-rose-500/20 text-rose-400 border-rose-500/50'
+                                : 'bg-transparent text-neutral-500 border-white/10 hover:border-rose-500/50 hover:text-rose-400'
+                            }`}
+                          >
+                            <XCircle className="w-3 h-3" /> {isFr ? 'Perdu' : 'Lost'}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                    <button
+                      onClick={() => {
+                        const resArray = Object.entries(resolutions).map(([betId, outcome]) => ({ betId, outcome }));
+                        if (resArray.length > 0) {
+                          resolvePendingBets(resArray);
+                          setResolutions({});
+                        }
+                      }}
+                      disabled={Object.keys(resolutions).length === 0}
+                      className="w-full mt-2 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold font-mono uppercase tracking-wider transition-all cursor-pointer"
+                    >
+                      {isFr ? 'Confirmer les Résultats' : 'Confirm Results'}
+                    </button>
+                  </div>
+                ) : (
+                  <p className="text-[10px] text-neutral-500 italic text-center py-2">
+                    {isFr ? 'Aucun pari en attente.' : 'No pending bets to resolve.'}
+                  </p>
+                )}
+              </div>
 
               {/* Trigger: Simulate Threshold Crash */}
               <button
@@ -404,8 +459,8 @@ export const ProfileSettings: React.FC = () => {
                   addSystemNotification(
                     isFr ? '📉 Seuil Critique Déclenché' : '📉 Critical Threshold Triggered',
                     isFr 
-                      ? `Le capital disponible a été abaissé à ${targetCrash} € pour tester la notification de seuil.`
-                      : `Liquid cash was lowered to ${targetCrash} € in order to prompt threshold alarms.`,
+                      ? `Le capital disponible a été abaissé à ${targetCrash} ₦ pour tester la notification de seuil.`
+                      : `Liquid cash was lowered to ${targetCrash} ₦ in order to prompt threshold alarms.`,
                     'system'
                   );
                 }}
