@@ -22,7 +22,7 @@ interface Challenge {
 
 export const DailyChallengeWidget: React.FC = () => {
   const { 
-    user, bankroll, disciplineScore, followedBets, lessons, analyses, setActiveTab, addToast
+    user, bankroll, disciplineScore, followedBets, lessons, analyses, setActiveTab, addToast, setShowQuickAdd
   } = useApp();
 
   const isFr = user.language === 'fr';
@@ -338,10 +338,7 @@ export const DailyChallengeWidget: React.FC = () => {
               )}
               {activeChallenge.category === 'ledger' && (
                 <button
-                  onClick={() => {
-                    const btn = document.getElementById('quick-add-bet-btn');
-                    if (btn) btn.click();
-                  }}
+                  onClick={() => setShowQuickAdd(true)}
                   className="w-full text-center text-xs font-bold text-neural-400 hover:text-white transition-colors flex items-center justify-center gap-1 cursor-pointer font-mono"
                 >
                   {isFr ? 'Ouvrir le Ticket Rapide' : 'Open Quick Ticket'}

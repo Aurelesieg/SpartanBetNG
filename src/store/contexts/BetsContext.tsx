@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { FollowedBet, MatchAnalysis, SportType } from '../../types';
+import { FollowedBet, MatchAnalysis, SportType, BetResolution } from '../../types';
 import { MOCK_HISTORY_BETS } from '../mockData';
 
 export const PSYCHOLOGICAL_TAGS = [
@@ -18,13 +18,13 @@ interface BetsContextType {
     psychologicalTags?: string[]
   ) => { success: boolean; error?: string };
   addCustomBet: (
-    bet: { homeTeam: string; awayTeam: string; prediction: string; odds: number; stakeAmount: number; status: 'pending' | 'won' | 'lost'; notes?: string; psychologicalTags?: string[]; sport: SportType },
+    bet: { homeTeam: string; awayTeam: string; prediction: string; odds: number; stakeAmount: number; status: 'pending' | 'won' | 'lost'; notes?: string; psychologicalTags?: string[]; sport?: SportType },
     bankrollBalance: number,
     currency: string
   ) => { success: boolean; error?: string };
   isBetFollowed: (analysisId: string) => boolean;
   updateBetNotesAndTags: (betId: string, notes: string, psychologicalTags: string[]) => void;
-  resolvePendingBets: () => { wonCount: number; lostCount: number; totalReturns: number; updates: { betId: string; outcome: 'won'|'lost'; stake: number; odds: number }[] };
+  resolvePendingBets: (resolutions: BetResolution[]) => { wonCount: number; lostCount: number; totalReturns: number; updates: { betId: string; outcome: 'won'|'lost'; stake: number; odds: number }[] };
   computeDisciplineScore: (completedLessonsCount: number) => number;
   resetBets: () => void;
 }
@@ -83,7 +83,7 @@ export const BetsProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const addCustomBet = (
-    bet: { homeTeam: string; awayTeam: string; prediction: string; odds: number; stakeAmount: number; status: 'pending' | 'won' | 'lost'; notes?: string; psychologicalTags?: string[]; sport: SportType },
+    bet: { homeTeam: string; awayTeam: string; prediction: string; odds: number; stakeAmount: number; status: 'pending' | 'won' | 'lost'; notes?: string; psychologicalTags?: string[]; sport?: SportType },
     bankrollBalance: number,
     currency: string
   ) => {
@@ -101,7 +101,7 @@ export const BetsProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       analysisId: 'custom-' + Math.random().toString(36).substring(2, 9),
       homeTeam: bet.homeTeam,
       awayTeam: bet.awayTeam,
-      sport: bet.sport,
+      sport: bet.sport ?? 'football',
       prediction: bet.prediction,
       odds: bet.odds,
       stakeAmount: bet.stakeAmount,
@@ -133,7 +133,7 @@ export const BetsProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }));
   };
 
-  const resolvePendingBets = () => {
+  const resolvePendingBets = (resolutions: BetResolution[]) => {
     let wonCount = 0;
     let lostCount = 0;
     let totalReturns = 0;
@@ -141,24 +141,27 @@ export const BetsProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const updatedBets = followedBets.map(bet => {
       if (bet.status === 'pending') {
-        const isWin = Math.random() < 0.6;
-        const outcome = isWin ? 'won' : 'lost';
+        const resolution = resolutions.find(r => r.betId === bet.id);
+        if (resolution) {
+          const outcome = resolution.outcome;
+          const isWin = outcome === 'won';
 
-        if (isWin) {
-          wonCount++;
-          totalReturns += bet.stakeAmount * bet.odds;
-        } else {
-          lostCount++;
+          if (isWin) {
+            wonCount++;
+            totalReturns += bet.stakeAmount * bet.odds;
+          } else {
+            lostCount++;
+          }
+
+          updates.push({
+            betId: bet.id,
+            outcome,
+            stake: bet.stakeAmount,
+            odds: bet.odds
+          });
+
+          return { ...bet, status: outcome };
         }
-
-        updates.push({
-          betId: bet.id,
-          outcome,
-          stake: bet.stakeAmount,
-          odds: bet.odds
-        });
-
-        return { ...bet, status: outcome };
       }
       return bet;
     });

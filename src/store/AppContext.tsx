@@ -6,7 +6,7 @@ import { BetsProvider, useBets } from './contexts/BetsContext';
 import { AnalysesProvider, useAnalyses } from './contexts/AnalysesContext';
 import { NotificationsProvider, useNotifications } from './contexts/NotificationsContext';
 import { UIProvider, useUI } from './contexts/UIContext';
-import { UserProfile, Bankroll, MatchAnalysis, FollowedBet, SchoolLesson, AppNotification, NotificationPrefs, SportType } from '../types';
+import { UserProfile, Bankroll, MatchAnalysis, FollowedBet, SchoolLesson, AppNotification, NotificationPrefs, SportType, BetResolution } from '../types';
 
 interface AppContextType {
   // User Profile
@@ -39,7 +39,7 @@ interface AppContextType {
     status: 'pending' | 'won' | 'lost';
     notes?: string;
     psychologicalTags?: string[];
-    sport: SportType;
+    sport?: SportType;
   }) => { success: boolean; error?: string };
   isBetFollowed: (analysisId: string) => boolean;
   updateBetNotesAndTags: (betId: string, notes: string, psychologicalTags: string[]) => void;
@@ -61,6 +61,8 @@ interface AppContextType {
   setSelectedAnalysis: (match: MatchAnalysis | null) => void;
   showFollowModal: boolean;
   setShowFollowModal: (show: boolean) => void;
+  showQuickAdd: boolean;
+  setShowQuickAdd: (show: boolean) => void;
 
   // Notification states
   notifications: AppNotification[];
@@ -70,7 +72,7 @@ interface AppContextType {
   markNotificationAsRead: (id: string) => void;
   markAllNotificationsAsRead: () => void;
   clearNotifications: () => void;
-  resolvePendingBets: () => void;
+  resolvePendingBets: (resolutions: BetResolution[]) => void;
   requestDesktopNotifications: () => Promise<boolean>;
 
   // Onboarding states
@@ -160,9 +162,9 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
     status: 'pending' | 'won' | 'lost';
     notes?: string;
     psychologicalTags?: string[];
-    sport: SportType;
+    sport?: SportType;
   }) => {
-    const res = betsCtx.addCustomBet(bet, bankrollCtx.bankroll.balance, bankrollCtx.bankroll.currency);
+    const res = betsCtx.addCustomBet({ ...bet, sport: bet.sport ?? 'football' }, bankrollCtx.bankroll.balance, bankrollCtx.bankroll.currency);
 
     if (res.success) {
       if (bet.status === 'pending' || bet.status === 'lost') {
@@ -197,8 +199,8 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   // Orchestrate: resolvePendingBets
-  const resolvePendingBets = () => {
-    const res = betsCtx.resolvePendingBets();
+  const resolvePendingBets = (resolutions: BetResolution[]) => {
+    const res = betsCtx.resolvePendingBets(resolutions);
 
     if (res.updates.length > 0) {
       if (res.totalReturns > 0) {
@@ -304,6 +306,8 @@ const Orchestrator: React.FC<{ children: ReactNode }> = ({ children }) => {
       setSelectedAnalysis: analysesCtx.setSelectedAnalysis,
       showFollowModal: uiCtx.showFollowModal,
       setShowFollowModal: uiCtx.setShowFollowModal,
+      showQuickAdd: uiCtx.showQuickAdd,
+      setShowQuickAdd: uiCtx.setShowQuickAdd,
 
       // Notification states
       notifications: notificationsCtx.notifications,

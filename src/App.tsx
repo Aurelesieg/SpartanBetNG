@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './store/AppContext';
 import { Header } from './components/layout/Header';
 import { Navbar } from './components/layout/Navbar';
@@ -10,26 +11,38 @@ import { ProfileSettings } from './components/features/ProfileSettings';
 import { ToastContainer } from './components/ui/ToastContainer';
 import { OnboardingTutorial } from './components/features/OnboardingTutorial';
 
-const MainLayout: React.FC = () => {
-  const { activeTab, user } = useApp();
+export const ROUTES = {
+  dashboard: '/',
+  analyses: '/analyses',
+  performance: '/performance',
+  school: '/school',
+  profile: '/profile',
+} as const;
 
-  // Switch between views depending on active navigation tab
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'analyses':
-        return <AnalysisDetail />;
-      case 'performance':
-        return <PerformanceTracker />;
-      case 'school':
-        return <SpartanSchool />;
-      case 'profile':
-        return <ProfileSettings />;
-      default:
-        return <Dashboard />;
+type ActiveTab = 'dashboard' | 'analyses' | 'performance' | 'school' | 'profile';
+
+const MainLayout: React.FC = () => {
+  const { user, setActiveTab, activeTab } = useApp();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const map: Record<string, ActiveTab> = {
+      '/': 'dashboard',
+      '/analyses': 'analyses',
+      '/performance': 'performance',
+      '/school': 'school',
+      '/profile': 'profile',
+    };
+    const tab = map[location.pathname] ?? 'dashboard';
+    setActiveTab(tab);
+  }, [location.pathname, setActiveTab]);
+
+  useEffect(() => {
+    if (ROUTES[activeTab] && location.pathname !== ROUTES[activeTab]) {
+      navigate(ROUTES[activeTab]);
     }
-  };
+  }, [activeTab, navigate, location.pathname]);
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-200 ${
@@ -48,7 +61,14 @@ const MainLayout: React.FC = () => {
 
         {/* Dynamic page viewport */}
         <main className="flex-1 px-4 py-6 sm:px-6 md:px-8 overflow-y-auto max-w-full">
-          {renderTabContent()}
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/analyses" element={<AnalysisDetail />} />
+          <Route path="/performance" element={<PerformanceTracker />} />
+          <Route path="/school" element={<SpartanSchool />} />
+          <Route path="/profile" element={<ProfileSettings />} />
+          <Route path="*" element={<Dashboard />} />
+        </Routes>
         </main>
       </div>
 

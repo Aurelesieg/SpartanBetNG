@@ -7,6 +7,8 @@ interface UIContextType {
   setActiveTab: (tab: 'dashboard' | 'analyses' | 'performance' | 'school' | 'profile') => void;
   showFollowModal: boolean;
   setShowFollowModal: (show: boolean) => void;
+  showQuickAdd: boolean;
+  setShowQuickAdd: (show: boolean) => void;
   lessons: SchoolLesson[];
   toggleLessonCompleted: (lessonId: string) => void;
   completedLessonsCount: number;
@@ -19,6 +21,7 @@ const L_LESSONS = 'spartanbet_lessons';
 export const UIProvider: React.FC<{ children: ReactNode; onToast: (msg: string, type?: 'success'|'error'|'info') => void; language: string }> = ({ children, onToast, language }) => {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'analyses' | 'performance' | 'school' | 'profile'>('dashboard');
   const [showFollowModal, setShowFollowModal] = useState(false);
+  const [showQuickAdd, setShowQuickAdd] = useState(false);
 
   const [lessons, setLessons] = useState<SchoolLesson[]>(() => {
     const saved = localStorage.getItem(L_LESSONS);
@@ -58,6 +61,8 @@ export const UIProvider: React.FC<{ children: ReactNode; onToast: (msg: string, 
       setActiveTab,
       showFollowModal,
       setShowFollowModal,
+      showQuickAdd,
+      setShowQuickAdd,
       lessons,
       toggleLessonCompleted,
       completedLessonsCount
