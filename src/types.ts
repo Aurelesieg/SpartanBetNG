@@ -15,6 +15,8 @@ export interface MatchAnalysis {
   detailedAnalysis: string[];
   isPremium: boolean;
   status: 'pending' | 'won' | 'lost';
+  liveScore?: string;
+  liveMinute?: number;
 }
 
 export interface FollowedBet {
@@ -22,6 +24,7 @@ export interface FollowedBet {
   analysisId: string;
   homeTeam: string;
   awayTeam: string;
+  sport: SportType;
   prediction: string;
   odds: number;
   stakeAmount: number; // e.g. 50 (EUR) or based on currency

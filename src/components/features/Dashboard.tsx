@@ -12,7 +12,7 @@ export const Dashboard: React.FC = () => {
   const { 
     user, bankroll, analyses, disciplineScore, followedBets, 
     lessons, setActiveTab, setSelectedAnalysis, setShowFollowModal,
-    updateMonthlyGoal
+    updateMonthlyGoal, togglePremium
   } = useApp();
 
   const isFr = user.language === 'fr';
@@ -364,8 +364,7 @@ export const Dashboard: React.FC = () => {
               const action = ads[activeAd].action;
               if (action === 'premium') {
                 // Toggle premium directly
-                const toggleBtn = document.getElementById('premium-toggle-btn');
-                if (toggleBtn) toggleBtn.click();
+                togglePremium();
               } else if (action === 'school') {
                 setActiveTab('school');
               } else {
@@ -487,8 +486,7 @@ export const Dashboard: React.FC = () => {
                   onClick={() => {
                     if (isPremiumLocked) {
                       // Trigger upgrade toast helper by toggling membership
-                      const toggleBtn = document.getElementById('premium-toggle-btn');
-                      if (toggleBtn) toggleBtn.click();
+                      togglePremium();
                     } else {
                       setSelectedAnalysis(match);
                       setActiveTab('analyses');
