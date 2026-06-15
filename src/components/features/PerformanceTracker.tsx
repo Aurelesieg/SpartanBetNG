@@ -104,10 +104,9 @@ export const PerformanceTracker: React.FC = () => {
 
   // 2. Sports breakdown counting
   const sportsCount = followedBets.reduce((acc, curr) => {
-    // Standard simulation helper mapping search words
-    let sport = 'Football';
-    if (curr.prediction.toLowerCase().includes('celtics') || curr.prediction.toLowerCase().includes('basket')) sport = 'Basketball';
-    if (curr.prediction.toLowerCase().includes('sets') || curr.prediction.toLowerCase().includes('alcaraz')) sport = 'Tennis';
+    const sport = curr.sport === 'basketball' ? 'Basketball'
+      : curr.sport === 'tennis' ? 'Tennis'
+      : 'Football';
     acc[sport] = (acc[sport] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);

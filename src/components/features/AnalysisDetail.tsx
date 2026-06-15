@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'motion/react';
 export const AnalysisDetail: React.FC = () => {
   const { 
     user, bankroll, analyses, isBetFollowed, followBet,
-    selectedAnalysis, setSelectedAnalysis, addToast
+    selectedAnalysis, setSelectedAnalysis, addToast, togglePremium
   } = useApp();
 
   const isFr = user.language === 'fr';
@@ -219,7 +219,7 @@ export const AnalysisDetail: React.FC = () => {
                     </p>
                   </div>
                   <button
-                    onClick={user.theme === 'dark' ? () => followBet('dummy', 0) : undefined} // Force toast helper by simulating action, or just upgrade
+                    onClick={togglePremium}
                     className="bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded transition-all cursor-pointer inline-block"
                   >
                     {isFr ? 'Rejoindre Spartan Premium' : 'Upgrade to Pro'}
