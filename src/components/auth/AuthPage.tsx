@@ -47,10 +47,10 @@ export const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0B] text-white flex flex-col items-center justify-center p-4 selection:bg-orange-500/30">
+    <div className="min-h-screen bg-[#0A0A0B] text-white flex flex-col items-center justify-center p-4 selection:bg-[#0099FF]/30">
 
       {/* Decorative background blurs */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-orange-600/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#007ACC]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-rose-600/5 rounded-full blur-[100px] pointer-events-none" />
 
       <motion.div
@@ -58,19 +58,35 @@ export const AuthPage: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-sm relative z-10"
       >
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/5 border border-orange-500/20 mb-4 shadow-[0_0_30px_rgba(249,115,22,0.15)]">
-            <span className="text-3xl font-black text-orange-500 font-mono tracking-tighter">S</span>
+        {/* Official SpartanBet Logo — vertical version for auth */}
+        <div className="flex flex-col items-center mb-6">
+          <img
+            src="/assets/spartan-loader.png"
+            alt="SpartanBet"
+            className="h-32 w-auto object-contain mb-2"
+            onError={(e) => {
+              // Fallback if image not found
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.nextElementSibling?.removeAttribute('style');
+            }}
+          />
+          {/* Fallback text logo (hidden by default, shown if img fails) */}
+          <div style={{ display: 'none' }}
+               className="flex flex-col items-center">
+            <span className="text-4xl font-black text-white font-mono
+                             tracking-tighter leading-none">SPARTAN</span>
+            <span className="text-4xl font-black text-[#0099FF] font-mono
+                             tracking-tighter leading-none">BET</span>
           </div>
-          <h1 className="text-2xl font-black tracking-tighter uppercase mb-1">
-            Spartan <span className="text-orange-500">Bet</span>
-          </h1>
-          <p className="text-xs text-neutral-400 font-mono">La discipline et les statistiques font la différence.</p>
+          <p className="text-[10px] font-mono text-[#0099FF]/70 tracking-[0.3em]
+                        uppercase mt-2">
+            Pronostics Sportifs
+          </p>
         </div>
 
         <div className="bg-[#131115] border border-white/5 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
           {/* Subtle top border gradient */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0099FF]/50 to-transparent" />
 
           <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -87,7 +103,7 @@ export const AuthPage: React.FC = () => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-orange-500/50 focus:bg-white/10 transition-all font-mono outline-none"
+                    className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-[#0099FF]/50 focus:bg-white/10 transition-all font-mono outline-none"
                     placeholder="Leonidas"
                     required={!isLogin}
                   />
@@ -101,7 +117,7 @@ export const AuthPage: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-orange-500/50 focus:bg-white/10 transition-all font-mono outline-none"
+                className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-[#0099FF]/50 focus:bg-white/10 transition-all font-mono outline-none"
                 placeholder="spartan@example.com"
                 required
               />
@@ -113,7 +129,7 @@ export const AuthPage: React.FC = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-orange-500/50 focus:bg-white/10 transition-all font-mono outline-none"
+                className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-[#0099FF]/50 focus:bg-white/10 transition-all font-mono outline-none"
                 placeholder="••••••••"
                 required
               />
@@ -132,7 +148,7 @@ export const AuthPage: React.FC = () => {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-orange-500/50 focus:bg-white/10 transition-all font-mono outline-none"
+                    className="w-full text-xs px-3 py-2.5 rounded-lg border border-white/5 bg-white/5 text-white focus:border-[#0099FF]/50 focus:bg-white/10 transition-all font-mono outline-none"
                     placeholder="••••••••"
                     required={!isLogin}
                   />
@@ -153,7 +169,7 @@ export const AuthPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 mt-2 rounded-xl bg-orange-600 hover:bg-orange-500 disabled:opacity-50 disabled:cursor-wait text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(249,115,22,0.2)] hover:shadow-[0_0_25px_rgba(249,115,22,0.3)] flex items-center justify-center gap-2"
+              className="w-full py-3 mt-2 rounded-xl bg-[#007ACC] hover:bg-[#0099FF] disabled:opacity-50 disabled:cursor-wait text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(0,153,255,0.2)] hover:shadow-[0_0_25px_rgba(0,153,255,0.3)] flex items-center justify-center gap-2"
             >
               {loading ? (
                 <span className="animate-pulse">{isLogin ? 'Connexion...' : 'Création...'}</span>
@@ -175,7 +191,7 @@ export const AuthPage: React.FC = () => {
                 setPassword('');
                 setConfirmPassword('');
               }}
-              className="text-[10px] font-mono text-neutral-400 hover:text-orange-400 transition-colors uppercase tracking-wider underline underline-offset-4 decoration-white/10 hover:decoration-orange-500/30"
+              className="text-[10px] font-mono text-neutral-400 hover:text-[#33AAFF] transition-colors uppercase tracking-wider underline underline-offset-4 decoration-white/10 hover:decoration-[#0099FF]/30"
             >
               {isLogin ? "Pas encore de compte ? S'inscrire" : "Déjà membre ? Se connecter"}
             </button>

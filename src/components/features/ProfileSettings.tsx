@@ -60,7 +60,7 @@ export const ProfileSettings: React.FC = () => {
         {/* Card Left: User Preferences */}
         <div className="bg-[#131316] border border-white/5 rounded-2xl p-5 md:p-6 space-y-6">
           <h3 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans border-b border-white/5 pb-3">
-            <User className="w-4 h-4 text-orange-500" />
+            <User className="w-4 h-4 text-[#0099FF]" />
             {isFr ? 'Préférences Profil' : 'Profile Properties'}
           </h3>
 
@@ -75,7 +75,7 @@ export const ProfileSettings: React.FC = () => {
                 onClick={() => setTheme('dark')}
                 className={`py-3 px-4 rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 border ${
                   user.theme === 'dark'
-                    ? 'bg-[#0A0A0B] text-orange-500 border-orange-500/50 shadow'
+                    ? 'bg-[#0A0A0B] text-[#0099FF] border-[#0099FF]/50 shadow'
                     : 'bg-stone-900/60 text-stone-400 border-stone-800 hover:border-stone-700'
                 }`}
               >
@@ -87,7 +87,7 @@ export const ProfileSettings: React.FC = () => {
                 onClick={() => setTheme('light')}
                 className={`py-3 px-4 rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 border ${
                   user.theme === 'light'
-                    ? 'bg-[#0A0A0B] text-orange-550 border-orange-500/50 shadow'
+                    ? 'bg-[#0A0A0B] text-[#0099FF] border-[#0099FF]/50 shadow'
                     : 'bg-stone-900/60 text-stone-400 border-stone-800 hover:border-stone-700'
                 }`}
               >
@@ -117,7 +117,7 @@ export const ProfileSettings: React.FC = () => {
                 onClick={() => setLanguage('fr')}
                 className={`py-3 px-4 rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 border ${
                   user.language === 'fr'
-                    ? 'bg-[#0A0A0B] text-orange-500 border-orange-500/50'
+                    ? 'bg-[#0A0A0B] text-[#0099FF] border-[#0099FF]/50'
                     : 'bg-stone-900/60 text-stone-400 border-stone-800 hover:border-stone-700'
                 }`}
               >
@@ -128,7 +128,7 @@ export const ProfileSettings: React.FC = () => {
                 onClick={() => setLanguage('en')}
                 className={`py-3 px-4 rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 border ${
                   user.language === 'en'
-                    ? 'bg-[#0A0A0B] text-orange-500 border-orange-500/50'
+                    ? 'bg-[#0A0A0B] text-[#0099FF] border-[#0099FF]/50'
                     : 'bg-stone-900/60 text-stone-400 border-stone-800 hover:border-stone-700'
                 }`}
               >
@@ -141,11 +141,11 @@ export const ProfileSettings: React.FC = () => {
           <div className="bg-[#0A0A0B] p-4 rounded-xl border border-white/5 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-orange-500" />
+                <Sparkles className="w-4 h-4 text-[#0099FF]" />
                 <span className="text-xs font-bold text-white uppercase font-mono tracking-tight animate-pulse">VIP Spartan Pro</span>
               </div>
               <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${
-                user.role === 'premium' ? 'bg-orange-500/20 text-orange-400' : 'bg-[#131316] border border-white/5 text-neutral-400'
+                user.role === 'premium' ? 'bg-[#0099FF]/20 text-[#33AAFF]' : 'bg-[#131316] border border-white/5 text-neutral-400'
               }`}>
                 {user.role === 'premium' ? 'ACTIVE' : 'INACTIVE'}
               </span>
@@ -160,7 +160,7 @@ export const ProfileSettings: React.FC = () => {
               className={`w-full py-2.5 rounded text-xs font-bold tracking-wider uppercase transition-all duration-150 cursor-pointer items-center justify-center gap-1.5 flex ${
                 user.role === 'premium'
                   ? 'bg-stone-900 text-stone-300 border border-stone-800 hover:bg-stone-850'
-                  : 'bg-orange-600 hover:bg-orange-500 text-white shadow-[0_0_12px_rgba(249,115,22,0.25)]'
+                  : 'bg-[#007ACC] hover:bg-[#0099FF] text-white shadow-[0_0_12px_rgba(0,153,255,0.25)]'
               }`}
             >
               {user.role === 'premium' 
@@ -173,7 +173,7 @@ export const ProfileSettings: React.FC = () => {
         {/* Card Right: Bankroll parameters */}
         <div className="bg-[#131316] border border-white/5 rounded-2xl p-5 md:p-6 space-y-6">
           <h3 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans border-b border-white/5 pb-3">
-            <Coins className="w-4 h-4 text-orange-500" />
+            <Coins className="w-4 h-4 text-[#0099FF]" />
             {isFr ? 'Ajustement Capital Bankroll' : 'Bankroll Configuration'}
           </h3>
 
@@ -198,7 +198,7 @@ export const ProfileSettings: React.FC = () => {
                 <select
                   value={currencyCode}
                   onChange={(e) => setCurrencyCode(e.target.value)}
-                  className="bg-[#0A0A0B] border border-white/5 rounded-lg p-2.5 w-full text-xs font-mono text-white text-center font-bold focus:outline-none focus:border-orange-500"
+                  className="bg-[#0A0A0B] border border-white/5 rounded-lg p-2.5 w-full text-xs font-mono text-white text-center font-bold focus:outline-none focus:border-[#0099FF]"
                 >
                   <option value="₦">NGN (₦)</option>
                   <option value="$">USD ($)</option>
@@ -233,7 +233,7 @@ export const ProfileSettings: React.FC = () => {
                 />
                 <button
                   onClick={handleUpdateBalanceValue}
-                  className="bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold uppercase tracking-wider rounded px-4 transition-all cursor-pointer"
+                  className="bg-[#007ACC] hover:bg-[#0099FF] text-white text-xs font-bold uppercase tracking-wider rounded px-4 transition-all cursor-pointer"
                 >
                   {isFr ? 'Ajuster' : 'Apply'}
                 </button>
@@ -260,7 +260,7 @@ export const ProfileSettings: React.FC = () => {
       <div className="bg-[#131316] border border-white/5 rounded-2xl p-5 md:p-6 space-y-6">
         <h3 className="text-sm font-bold text-white flex items-center justify-between font-sans border-b border-white/5 pb-3">
           <span className="flex items-center gap-1.5">
-            <Bell className="w-4 h-4 text-orange-500" />
+            <Bell className="w-4 h-4 text-[#0099FF]" />
             {isFr ? 'Spartan Notification Hub' : 'Notification Control Panel'}
           </span>
           <span className="text-[10px] font-mono text-neutral-500">
@@ -288,7 +288,7 @@ export const ProfileSettings: React.FC = () => {
               <button
                 id="toggle-outcome-notifications"
                 onClick={() => updateNotificationPrefs({ betOutcomes: !notificationPrefs.betOutcomes })}
-                className="text-orange-500 hover:scale-105 transition-all focus:outline-none cursor-pointer"
+                className="text-[#0099FF] hover:scale-105 transition-all focus:outline-none cursor-pointer"
               >
                 {notificationPrefs.betOutcomes ? (
                   <ToggleRight className="w-9 h-9" />
@@ -311,7 +311,7 @@ export const ProfileSettings: React.FC = () => {
               <button
                 id="toggle-threshold-notifications"
                 onClick={() => updateNotificationPrefs({ bankrollThreshold: !notificationPrefs.bankrollThreshold })}
-                className="text-orange-500 hover:scale-105 transition-all focus:outline-none cursor-pointer"
+                className="text-[#0099FF] hover:scale-105 transition-all focus:outline-none cursor-pointer"
               >
                 {notificationPrefs.bankrollThreshold ? (
                   <ToggleRight className="w-9 h-9" />
@@ -326,7 +326,7 @@ export const ProfileSettings: React.FC = () => {
               <div className="p-3 bg-[#0A0A0B] border border-white/5 rounded-xl space-y-2">
                 <div className="flex justify-between items-center text-[11px] font-mono">
                   <span className="text-neutral-400">{isFr ? 'SEUIL LIMITE D\'ALERTE' : 'ALERT LIMIT THRESHOLD'}</span>
-                  <span className="text-orange-500 font-bold">{notificationPrefs.bankrollThresholdValue} {bankroll.currency}</span>
+                  <span className="text-[#0099FF] font-bold">{notificationPrefs.bankrollThresholdValue} {bankroll.currency}</span>
                 </div>
                 <input
                   type="range"
@@ -335,7 +335,7 @@ export const ProfileSettings: React.FC = () => {
                   step="50"
                   value={notificationPrefs.bankrollThresholdValue}
                   onChange={(e) => updateNotificationPrefs({ bankrollThresholdValue: parseInt(e.target.value) })}
-                  className="w-full accent-orange-500 cursor-pointer h-1 bg-stone-850 rounded-lg appearance-none"
+                  className="w-full accent-[#0099FF] cursor-pointer h-1 bg-stone-850 rounded-lg appearance-none"
                 />
                 <div className="flex justify-between text-[9px] text-neutral-600 font-mono">
                   <span>100 {bankroll.currency}</span>
@@ -375,7 +375,7 @@ export const ProfileSettings: React.FC = () => {
           {/* Simulated Playground Container */}
           <div className="space-y-4 bg-[#0A0A0B] p-4 rounded-xl border border-white/5">
             <div>
-              <h4 className="text-xs font-bold text-orange-500 uppercase tracking-widest font-mono flex items-center gap-1">
+              <h4 className="text-xs font-bold text-[#0099FF] uppercase tracking-widest font-mono flex items-center gap-1">
                 <AlertCircle className="w-4 h-4" />
                 {isFr ? 'Simulations d\'Action & Diagnostics' : 'Sandbox Playgrounds'}
               </h4>
@@ -393,7 +393,7 @@ export const ProfileSettings: React.FC = () => {
                   <span className="block text-xs font-bold text-white">
                     {isFr ? '⚡ Résolution des Paris Suspendus' : '⚡ Pending Bets Resolution'}
                   </span>
-                  <span className="bg-orange-500/10 text-orange-400 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                  <span className="bg-[#0099FF]/10 text-[#33AAFF] text-[10px] font-mono px-2 py-0.5 rounded font-bold">
                     {pendingBets.length} {isFr ? 'en attente' : 'pending'}
                   </span>
                 </div>
@@ -439,7 +439,7 @@ export const ProfileSettings: React.FC = () => {
                         }
                       }}
                       disabled={Object.keys(resolutions).length === 0}
-                      className="w-full mt-2 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold font-mono uppercase tracking-wider transition-all cursor-pointer"
+                      className="w-full mt-2 py-2 rounded-lg bg-[#007ACC] hover:bg-[#0099FF] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold font-mono uppercase tracking-wider transition-all cursor-pointer"
                     >
                       {isFr ? 'Confirmer les Résultats' : 'Confirm Results'}
                     </button>

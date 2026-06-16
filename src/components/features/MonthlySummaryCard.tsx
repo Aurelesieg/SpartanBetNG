@@ -116,13 +116,13 @@ export const MonthlySummaryCard: React.FC = () => {
   return (
     <div className="bg-[#131316] border border-white/5 rounded-3xl p-5 md:p-6 space-y-5 relative overflow-hidden">
       {/* Visual top accent */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-orange-500/10 via-orange-500/30 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#0099FF]/10 via-[#0099FF]/30 to-transparent" />
 
       {/* Title block */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
         <div className="flex items-center gap-2.5">
-          <span className="p-2 rounded-xl bg-orange-600/10 text-orange-500 flex items-center justify-center">
-            <Calendar className="w-5 h-5 text-orange-500" />
+          <span className="p-2 rounded-xl bg-[#007ACC]/10 text-[#0099FF] flex items-center justify-center">
+            <Calendar className="w-5 h-5 text-[#0099FF]" />
           </span>
           <div>
             <h3 className="font-bold text-white text-sm tracking-tight uppercase italic flex items-center gap-1.5">
@@ -195,7 +195,7 @@ export const MonthlySummaryCard: React.FC = () => {
                         {isFr ? 'Taux Yield' : 'Yield ROI'}
                       </span>
                       <strong className={`font-mono text-xs sm:text-sm font-black block ${
-                        stats.yieldPercent >= 0 ? 'text-orange-500' : 'text-rose-400'
+                        stats.yieldPercent >= 0 ? 'text-[#0099FF]' : 'text-rose-400'
                       }`}>
                         {stats.yieldPercent >= 0 ? '+' : ''}{stats.yieldPercent.toFixed(1)}%
                       </strong>
@@ -277,7 +277,7 @@ export const MonthlySummaryCard: React.FC = () => {
                                 {stats.totalStaked.toLocaleString()} {bankroll.currency}
                               </strong>
                             </div>
-                            <Coins className="w-4 h-4 text-orange-500/40" />
+                            <Coins className="w-4 h-4 text-[#0099FF]/40" />
                           </div>
                         </div>
 
@@ -309,7 +309,7 @@ export const MonthlySummaryCard: React.FC = () => {
                                       </span>
                                     </div>
                                     <p className="text-[10px] text-neutral-400 mt-0.5 italic">
-                                      {isFr ? 'Pronostic :' : 'Pick :'} {bet.prediction} &bull; Odds: <strong className="text-orange-400 font-mono">{bet.odds.toFixed(2)}</strong>
+                                      {isFr ? 'Pronostic :' : 'Pick :'} {bet.prediction} &bull; Odds: <strong className="text-[#33AAFF] font-mono">{bet.odds.toFixed(2)}</strong>
                                     </p>
                                   </div>
 

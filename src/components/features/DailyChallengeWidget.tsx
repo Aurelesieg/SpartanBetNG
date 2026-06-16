@@ -195,7 +195,7 @@ export const DailyChallengeWidget: React.FC = () => {
   // Icon select logic
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'discipline': return <Swords className="w-5 h-5 text-orange-500" />;
+      case 'discipline': return <Swords className="w-5 h-5 text-[#0099FF]" />;
       case 'growth': return <Landmark className="w-5 h-5 text-amber-500" />;
       case 'school': return <BookOpen className="w-5 h-5 text-blue-500" />;
       case 'ledger': return <Trophy className="w-5 h-5 text-yellow-500" />;
@@ -206,12 +206,12 @@ export const DailyChallengeWidget: React.FC = () => {
   return (
     <div className="bg-[#131316] border border-white/5 rounded-2xl p-5 md:p-6 overflow-hidden relative">
       {/* Decorative accent graphic in corner */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-orange-500/10 to-transparent pointer-events-none rounded-tr-2xl" />
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#0099FF]/10 to-transparent pointer-events-none rounded-tr-2xl" />
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4 mb-4">
         <div className="flex items-center gap-2.5">
-          <span className="p-2 rounded-xl bg-orange-600/10 text-orange-500 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-orange-500 animate-pulse" />
+          <span className="p-2 rounded-xl bg-[#007ACC]/10 text-[#0099FF] flex items-center justify-center">
+            <Zap className="w-5 h-5 text-[#0099FF] animate-pulse" />
           </span>
           <div>
             <h3 className="font-bold text-white text-sm tracking-tight flex items-center gap-1.5 uppercase italic">
@@ -230,7 +230,7 @@ export const DailyChallengeWidget: React.FC = () => {
             <strong className="text-white text-xs">{completedChallenges.length}</strong>
           </span>
           {completedChallenges.length > 0 && (
-            <span className="bg-orange-600/10 text-orange-500 border border-orange-500/10 px-2.5 py-1 rounded-lg font-black flex items-center gap-1">
+            <span className="bg-[#007ACC]/10 text-[#0099FF] border border-[#0099FF]/10 px-2.5 py-1 rounded-lg font-black flex items-center gap-1">
               <Star className="w-3 h-3 fill-current" />
               STREAK: {completedChallenges.length}
             </span>
@@ -251,7 +251,7 @@ export const DailyChallengeWidget: React.FC = () => {
                   {isFr ? 'DÉFI DU JOUR' : "TODAY'S MISSION"}
                 </span>
                 <span className="h-1 w-1 rounded-full bg-neutral-700" />
-                <span className="text-[9px] uppercase tracking-wider font-bold text-orange-400">
+                <span className="text-[9px] uppercase tracking-wider font-bold text-[#33AAFF]">
                   {isFr ? 'Difficulté' : 'Difficulty'}: {activeChallenge.difficulty}
                 </span>
               </div>
@@ -266,7 +266,7 @@ export const DailyChallengeWidget: React.FC = () => {
           </p>
 
           <div className="bg-[#0A0A0B] border border-white/5 rounded-xl p-3 flex items-start gap-2 max-w-2xl">
-            <HelpCircle className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
+            <HelpCircle className="w-4 h-4 text-[#0099FF] shrink-0 mt-0.5" />
             <div className="text-[10px] leading-normal text-neutral-500">
               <span className="font-bold text-stone-300 block uppercase tracking-wider mb-0.5">
                 💡 {isFr ? 'Comment réussir ?' : 'Spartan Tactics Guide :'}
@@ -297,7 +297,7 @@ export const DailyChallengeWidget: React.FC = () => {
               <button
                 id="verify-daily-challenge-btn"
                 onClick={handleVerify}
-                className="w-full bg-orange-650 bg-orange-600 hover:bg-orange-500 text-white font-mono text-xs font-bold uppercase tracking-wider py-3 px-4 rounded-xl cursor-pointer shadow-[0_4px_12px_rgba(249,115,22,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 focus:outline-none"
+                className="w-full bg-[#007ACC] bg-[#007ACC] hover:bg-[#0099FF] text-white font-mono text-xs font-bold uppercase tracking-wider py-3 px-4 rounded-xl cursor-pointer shadow-[0_4px_12px_rgba(0,153,255,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 focus:outline-none"
               >
                 <Swords className="w-4 h-4" />
                 {isFr ? activeChallenge.actionTextFr : activeChallenge.actionTextEn}

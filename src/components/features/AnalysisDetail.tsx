@@ -132,7 +132,7 @@ export const AnalysisDetail: React.FC = () => {
                   }}
                   className={`w-full text-left p-4 rounded-2xl border transition-all duration-150 cursor-pointer ${
                     isSelected 
-                      ? 'bg-[#131316] border-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.15)]' 
+                      ? 'bg-[#131316] border-[#0099FF] shadow-[0_0_12px_rgba(0,153,255,0.15)]'
                       : 'bg-stone-900/40 border-stone-800 hover:border-stone-700 hover:bg-stone-900/60'
                   }`}
                 >
@@ -146,7 +146,7 @@ export const AnalysisDetail: React.FC = () => {
                       </span>
                     )}
                     {isPremiumLocked && (
-                      <span className="text-[9px] font-bold text-orange-500 bg-orange-950/30 border border-orange-900/80 px-1.5 py-0.5 rounded flex items-center gap-1">
+                      <span className="text-[9px] font-bold text-[#0099FF] bg-[#001A33]/30 border border-[#002B52]/80 px-1.5 py-0.5 rounded flex items-center gap-1">
                         <Sparkles className="w-2.5 h-2.5" />
                         VIP
                       </span>
@@ -159,7 +159,7 @@ export const AnalysisDetail: React.FC = () => {
 
                   <div className="flex justify-between items-center text-xs text-stone-400 mt-3 font-mono">
                     <span className="truncate max-w-[150px]">{match.prediction}</span>
-                    <strong className="text-orange-500 font-bold">@ {match.odds}</strong>
+                    <strong className="text-[#0099FF] font-bold">@ {match.odds}</strong>
                   </div>
                 </button>
               );
@@ -189,7 +189,7 @@ export const AnalysisDetail: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <div className="text-center bg-stone-950 border border-stone-800 px-3.5 py-2 rounded-xl">
                     <span className="block text-[9px] text-stone-500 font-bold uppercase tracking-wider leading-none">COTE</span>
-                    <span className="text-lg font-mono font-black text-orange-500">
+                    <span className="text-lg font-mono font-black text-[#0099FF]">
                       {activeAnalysis.odds}
                     </span>
                   </div>
@@ -205,7 +205,7 @@ export const AnalysisDetail: React.FC = () => {
               {/* Locked view for Premium if applicable */}
               {activeAnalysis.isPremium && user.role !== 'premium' ? (
                 <div className="bg-stone-950/80 border border-stone-800 rounded-2xl p-8 py-12 text-center max-w-lg mx-auto space-y-4">
-                  <div className="mx-auto flex justify-center w-12 h-12 rounded-full bg-orange-500/10 text-orange-500">
+                  <div className="mx-auto flex justify-center w-12 h-12 rounded-full bg-[#0099FF]/10 text-[#0099FF]">
                     <Sparkles className="w-6 h-6 self-center" />
                   </div>
                   <div className="space-y-2">
@@ -220,7 +220,7 @@ export const AnalysisDetail: React.FC = () => {
                   </div>
                   <button
                     onClick={togglePremium}
-                    className="bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded transition-all cursor-pointer inline-block"
+                    className="bg-[#007ACC] hover:bg-[#0099FF] text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded transition-all cursor-pointer inline-block"
                   >
                     {isFr ? 'Rejoindre Spartan Premium' : 'Upgrade to Pro'}
                   </button>
@@ -230,11 +230,11 @@ export const AnalysisDetail: React.FC = () => {
                   {/* Analysis Text Overview */}
                   <div className="space-y-3">
                     <h4 className="text-xs text-stone-400 uppercase tracking-wider font-mono flex items-center gap-1.5">
-                      <Target className="w-4 h-4 text-orange-500" />
+                      <Target className="w-4 h-4 text-[#0099FF]" />
                       {isFr ? 'RECOMMANDATION SPARTAN' : 'THE STRATEGIC PICK'}
                     </h4>
-                    <div className="bg-orange-500/5 border border-orange-500/10 p-4 rounded-2xl">
-                      <p className="text-sm font-extrabold text-orange-500">
+                    <div className="bg-[#0099FF]/5 border border-[#0099FF]/10 p-4 rounded-2xl">
+                      <p className="text-sm font-extrabold text-[#0099FF]">
                         {activeAnalysis.prediction}
                       </p>
                       <p className="text-xs text-stone-300 mt-2 leading-relaxed">
@@ -246,7 +246,7 @@ export const AnalysisDetail: React.FC = () => {
                   {/* Bullet analysis parameters */}
                   <div className="space-y-4">
                     <h4 className="text-xs text-stone-400 uppercase tracking-wider font-mono flex items-center gap-1.5">
-                      <Dumbbell className="w-4 h-4 text-orange-500" />
+                      <Dumbbell className="w-4 h-4 text-[#0099FF]" />
                       {isFr ? 'points clés de l’analyse' : 'tactical match breakdown'}
                     </h4>
                     <div className="grid grid-cols-1 gap-3">
@@ -268,8 +268,8 @@ export const AnalysisDetail: React.FC = () => {
 
                   {/* Danger zone / Discipline indicator */}
                   <div className="bg-stone-950 p-4 border border-stone-800 rounded-xl flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-orange-500/10 text-orange-500 shrink-0">
-                      <ShieldCheck className="w-5 h-5 text-orange-500" />
+                    <div className="p-2 rounded-lg bg-[#0099FF]/10 text-[#0099FF] shrink-0">
+                      <ShieldCheck className="w-5 h-5 text-[#0099FF]" />
                     </div>
                     <div>
                       <h5 className="text-xs font-bold text-white mb-0.5">
@@ -342,7 +342,7 @@ export const AnalysisDetail: React.FC = () => {
                 
                 {/* Header */}
                 <div className="text-center">
-                  <span className="text-[10px] font-bold text-orange-500 uppercase tracking-widest font-mono">
+                  <span className="text-[10px] font-bold text-[#0099FF] uppercase tracking-widest font-mono">
                     {isFr ? 'VOTRE TICKET DE PARI' : 'WAGER REGISTRATION'}
                   </span>
                   <h4 className="text-base font-bold text-white mt-1">
@@ -386,7 +386,7 @@ export const AnalysisDetail: React.FC = () => {
                           type="number"
                           value={stakeValue}
                           onChange={(e) => setStakeValue(Math.max(0, parseFloat(e.target.value) || 0))}
-                          className="bg-stone-950 border border-stone-800 rounded-lg p-2.5 flex-1 font-mono text-center text-white font-bold text-sm focus:outline-none focus:border-orange-500"
+                          className="bg-stone-950 border border-stone-800 rounded-lg p-2.5 flex-1 font-mono text-center text-white font-bold text-sm focus:outline-none focus:border-[#0099FF]"
                         />
                         <span className="font-mono text-stone-400 font-black">{bankroll.currency}</span>
                       </div>
@@ -397,7 +397,7 @@ export const AnalysisDetail: React.FC = () => {
                         <span className="text-stone-500 font-bold uppercase tracking-wider text-[10px]">
                           {isFr ? 'Pourcentage total :' : 'Target % ratio:'}
                         </span>
-                        <strong className="text-orange-500 font-mono">{percentStake}%</strong>
+                        <strong className="text-[#0099FF] font-mono">{percentStake}%</strong>
                       </div>
                       <input
                         id="stake-percent-slider"
@@ -407,12 +407,12 @@ export const AnalysisDetail: React.FC = () => {
                         step="0.5"
                         value={percentStake}
                         onChange={(e) => setPercentStake(parseFloat(e.target.value))}
-                        className="w-full accent-orange-500 bg-stone-950"
+                        className="w-full accent-[#0099FF] bg-stone-950"
                       />
                       <div className="flex justify-between text-[9px] font-mono text-stone-500 mt-1">
                         <span>Min (0.5%)</span>
-                        <span className="text-orange-500/80 font-bold">{isFr ? 'Recommandé (2%)' : 'Suggested (2%)'}</span>
-                        <span className="text-orange-500">{isFr ? 'Risqué (>5%)' : 'Aggressive (>5%)'}</span>
+                        <span className="text-[#0099FF]/80 font-bold">{isFr ? 'Recommandé (2%)' : 'Suggested (2%)'}</span>
+                        <span className="text-[#0099FF]">{isFr ? 'Risqué (>5%)' : 'Aggressive (>5%)'}</span>
                       </div>
                     </div>
                   )}
@@ -444,13 +444,13 @@ export const AnalysisDetail: React.FC = () => {
                     </div>
                   </div>
                 ) : isTooHighRisk ? (
-                  <div className="bg-orange-950/40 border border-orange-900 rounded-xl p-3.5 flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+                  <div className="bg-[#001A33]/40 border border-[#002B52] rounded-xl p-3.5 flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-[#0099FF] shrink-0 mt-0.5" />
                     <div>
-                      <h5 className="font-bold text-orange-400 text-xs uppercase leading-none">
+                      <h5 className="font-bold text-[#33AAFF] text-xs uppercase leading-none">
                         {isFr ? 'RISQUE SÉVÈRE DE FAILLITE' : 'AGGRESSIVE EXPOSURE ALARM'}
                       </h5>
-                      <p className="text-[10px] text-orange-200 leading-relaxed mt-1">
+                      <p className="text-[10px] text-[#99DAFF] leading-relaxed mt-1">
                         {isFr 
                           ? `Miser ${currentStakePercent}% compromet gravement votre sécurité financière. La variance négative ("Bad Run") détruira votre capital.` 
                           : `A ${currentStakePercent}% wager profile exceeds standard guidelines. Safe trading parameters recommend <= 3%.`}
@@ -485,7 +485,7 @@ export const AnalysisDetail: React.FC = () => {
                       onChange={e => setFollowNotes(e.target.value)}
                       placeholder={isFr ? 'Pourquoi suivez-vous cette recommandation ? (ex. Confiance élevée, tactique, discipline...)' : 'Why are you following this match prediction? (e.g., strong H2H, tactical play...)'}
                       rows={2}
-                      className="w-full text-xs bg-stone-900 border border-stone-800 rounded-lg p-2.5 text-white placeholder-stone-600 focus:outline-none focus:border-orange-500 resize-none font-sans"
+                      className="w-full text-xs bg-stone-900 border border-stone-800 rounded-lg p-2.5 text-white placeholder-stone-600 focus:outline-none focus:border-[#0099FF] resize-none font-sans"
                     />
                   </div>
 
@@ -518,7 +518,7 @@ export const AnalysisDetail: React.FC = () => {
                             }}
                             className={`px-2 py-1 rounded-md text-[9px] font-mono font-bold transition-all border cursor-pointer select-none ${
                               isSelected
-                                ? 'bg-orange-500/15 border-orange-500 text-orange-400 font-extrabold'
+                                ? 'bg-[#0099FF]/15 border-[#0099FF] text-[#33AAFF] font-extrabold'
                                 : 'bg-stone-900 border-stone-800 text-neutral-400 hover:text-white hover:bg-stone-850'
                             }`}
                           >
@@ -545,7 +545,7 @@ export const AnalysisDetail: React.FC = () => {
                       isOutOfFunds || isInvalid
                         ? 'bg-stone-800 text-stone-500 cursor-not-allowed border border-stone-800'
                         : isTooHighRisk
-                          ? 'bg-orange-600 hover:bg-orange-500 text-white font-bold rounded uppercase tracking-wider'
+                          ? 'bg-[#007ACC] hover:bg-[#0099FF] text-white font-bold rounded uppercase tracking-wider'
                           : 'bg-stone-100 hover:bg-stone-200 text-stone-950 shadow-md'
                     }`}
                   >

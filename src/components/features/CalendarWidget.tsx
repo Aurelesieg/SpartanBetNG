@@ -129,8 +129,8 @@ export const CalendarWidget: React.FC = () => {
     <div className="bg-[#131316] border border-white/5 rounded-2xl p-5 md:p-6 space-y-6">
       <div className="flex items-center justify-between border-b border-white/5 pb-4">
         <div className="flex items-center gap-2">
-          <span className="p-1.5 rounded-lg bg-orange-600/10 text-orange-500">
-            <Calendar className="w-5 h-5 text-orange-500" />
+          <span className="p-1.5 rounded-lg bg-[#007ACC]/10 text-[#0099FF]">
+            <Calendar className="w-5 h-5 text-[#0099FF]" />
           </span>
           <div>
             <h3 className="font-bold text-white text-sm">
@@ -211,9 +211,9 @@ export const CalendarWidget: React.FC = () => {
                   onClick={() => setSelectedDay(day)}
                   className={`aspect-square rounded-xl border relative flex flex-col justify-between p-1.5 transition-all text-left group focus:outline-none cursor-pointer ${
                     isSelected
-                      ? 'bg-orange-655 bg-orange-600 border-orange-500 text-white shadow-[0_8px_16px_rgba(249,115,22,0.25)]'
+                      ? 'bg-[#007ACC] bg-[#007ACC] border-[#0099FF] text-white shadow-[0_8px_16px_rgba(0,153,255,0.25)]'
                       : isToday
-                      ? 'bg-[#181514] border-orange-500/50 hover:bg-stone-900 hover:border-orange-500/80 text-orange-500'
+                      ? 'bg-[#181514] border-[#0099FF]/50 hover:bg-stone-900 hover:border-[#0099FF]/80 text-[#0099FF]'
                       : 'bg-[#0A0A0B] border-white/5 hover:bg-stone-900 hover:border-white/10 text-neutral-300'
                   }`}
                 >
@@ -223,7 +223,7 @@ export const CalendarWidget: React.FC = () => {
                     </span>
                     {isToday && (
                       <span className={`text-[7px] font-sans font-black uppercase px-1 py-0.5 rounded ${
-                        isSelected ? 'bg-white/20 text-white' : 'bg-orange-950/40 text-orange-400'
+                        isSelected ? 'bg-white/20 text-white' : 'bg-[#001A33]/40 text-[#33AAFF]'
                       }`}>
                         TODAY
                       </span>
@@ -234,7 +234,7 @@ export const CalendarWidget: React.FC = () => {
                   <div className="flex flex-wrap items-center gap-1 mt-auto">
                     {hasUpcomingPicks && (
                       <span 
-                        className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-orange-500'}`} 
+                        className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-[#0099FF]'}`}
                         title={isFr ? 'Matchs disponibles' : 'Upcoming picks available'}
                       />
                     )}
@@ -265,7 +265,7 @@ export const CalendarWidget: React.FC = () => {
           {/* Quick legend info box */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[9px] font-mono text-neutral-500 border-t border-white/5 pt-3">
             <span className="flex items-center gap-1 uppercase select-none">
-              <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
+              <span className="w-1.5 h-1.5 bg-[#0099FF] rounded-full" />
               {isFr ? 'opportunités' : 'picks'}
             </span>
             <span className="flex items-center gap-1 uppercase select-none">
@@ -287,7 +287,7 @@ export const CalendarWidget: React.FC = () => {
         <div className="lg:col-span-5 bg-[#0A0A0B] border border-white/5 rounded-2xl p-4 flex flex-col justify-between space-y-4">
           <div className="space-y-4">
             <div className="border-b border-white/5 pb-2">
-              <span className="text-[10px] font-mono font-black text-orange-500 uppercase tracking-widest block">
+              <span className="text-[10px] font-mono font-black text-[#0099FF] uppercase tracking-widest block">
                 {isFr ? 'SÉLECTION SPARTAN' : 'RECORD OF DAY'}
               </span>
               <h4 className="text-xs font-bold text-white italic uppercase mt-0.5">
@@ -323,14 +323,14 @@ export const CalendarWidget: React.FC = () => {
                               <span className="text-[8px] font-mono text-neutral-400 tracking-wider">
                                 {analysis.league}
                               </span>
-                              <span className="bg-orange-500/10 text-orange-400 text-[8px] px-1.5 py-0.5 rounded font-black font-mono">
+                              <span className="bg-[#0099FF]/10 text-[#33AAFF] text-[8px] px-1.5 py-0.5 rounded font-black font-mono">
                                 CONF: {analysis.confidence}%
                               </span>
                             </div>
                             <h5 className="text-[11px] font-bold text-white mt-1 leading-snug">
                               {analysis.homeTeam} - {analysis.awayTeam}
                             </h5>
-                            <p className="text-[10px] font-mono text-orange-400 font-extrabold mt-0.5">
+                            <p className="text-[10px] font-mono text-[#33AAFF] font-extrabold mt-0.5">
                               {analysis.prediction}
                             </p>
                           </div>
@@ -340,7 +340,7 @@ export const CalendarWidget: React.FC = () => {
                               setSelectedAnalysis(analysis);
                               setActiveTab('analyses');
                             }}
-                            className="w-full mt-1 bg-white/5 hover:bg-orange-600 hover:text-white transition-all text-neutral-300 text-[9px] font-bold uppercase tracking-wider py-1.5 rounded font-mono cursor-pointer flex items-center justify-center gap-1"
+                            className="w-full mt-1 bg-white/5 hover:bg-[#007ACC] hover:text-white transition-all text-neutral-300 text-[9px] font-bold uppercase tracking-wider py-1.5 rounded font-mono cursor-pointer flex items-center justify-center gap-1"
                           >
                             <Play className="w-2.5 h-2.5" />
                             {isFr ? 'Voir l’analyse' : 'Read analysis'}
