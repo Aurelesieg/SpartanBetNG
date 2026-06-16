@@ -23,12 +23,12 @@ export const AuthPage: React.FC = () => {
       if (res.error) setError(res.error);
     } else {
       if (password !== confirmPassword) {
-        setError('Les mots de passe ne correspondent pas.');
+        setError('Passwords do not match.');
         setLoading(false);
         return;
       }
       if (!name.trim()) {
-        setError('Le nom est requis.');
+        setError('Name is required.');
         setLoading(false);
         return;
       }
@@ -37,7 +37,7 @@ export const AuthPage: React.FC = () => {
         setError(res.error);
       } else {
         // Force switch to login or show success message depending on Supabase email confirmation settings
-        setError('Inscription réussie. Vous pouvez maintenant vous connecter (ou vérifiez votre email).');
+        setError('Account created. You can now sign in (or check your email).');
         setIsLogin(true);
         setPassword('');
         setConfirmPassword('');
@@ -80,7 +80,7 @@ export const AuthPage: React.FC = () => {
           </div>
           <p className="text-[10px] font-mono text-[#0099FF]/70 tracking-[0.3em]
                         uppercase mt-2">
-            Pronostics Sportifs
+            Sports Betting
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export const AuthPage: React.FC = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="space-y-1"
                 >
-                  <label className="text-[10px] font-bold font-mono text-neutral-400 uppercase tracking-wider block">Nom de Spartan</label>
+                  <label className="text-[10px] font-bold font-mono text-neutral-400 uppercase tracking-wider block">Spartan Name</label>
                   <input
                     type="text"
                     value={name}
@@ -124,7 +124,7 @@ export const AuthPage: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-bold font-mono text-neutral-400 uppercase tracking-wider block">Mot de passe</label>
+              <label className="text-[10px] font-bold font-mono text-neutral-400 uppercase tracking-wider block">Password</label>
               <input
                 type="password"
                 value={password}
@@ -143,7 +143,7 @@ export const AuthPage: React.FC = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="space-y-1"
                 >
-                  <label className="text-[10px] font-bold font-mono text-neutral-400 uppercase tracking-wider block">Confirmer le mot de passe</label>
+                  <label className="text-[10px] font-bold font-mono text-neutral-400 uppercase tracking-wider block">Confirm Password</label>
                   <input
                     type="password"
                     value={confirmPassword}
@@ -172,10 +172,10 @@ export const AuthPage: React.FC = () => {
               className="w-full py-3 mt-2 rounded-xl bg-[#007ACC] hover:bg-[#0099FF] disabled:opacity-50 disabled:cursor-wait text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(0,153,255,0.2)] hover:shadow-[0_0_25px_rgba(0,153,255,0.3)] flex items-center justify-center gap-2"
             >
               {loading ? (
-                <span className="animate-pulse">{isLogin ? 'Connexion...' : 'Création...'}</span>
+                <span className="animate-pulse">{isLogin ? 'Signing in...' : 'Creating...'}</span>
               ) : (
                 <>
-                  {isLogin ? 'Accéder au QG' : 'Rejoindre les rangs'}
+                  {isLogin ? 'Enter the HQ' : 'Join the Ranks'}
                   {isLogin ? <LogIn className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
                 </>
               )}
@@ -193,7 +193,7 @@ export const AuthPage: React.FC = () => {
               }}
               className="text-[10px] font-mono text-neutral-400 hover:text-[#33AAFF] transition-colors uppercase tracking-wider underline underline-offset-4 decoration-white/10 hover:decoration-[#0099FF]/30"
             >
-              {isLogin ? "Pas encore de compte ? S'inscrire" : "Déjà membre ? Se connecter"}
+              {isLogin ? 'No account yet? Sign up' : 'Already a member? Sign in'}
             </button>
           </div>
         </div>
