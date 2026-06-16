@@ -62,10 +62,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await supabase.auth.signOut();
   };
 
-  if (isLoading) {
-    return null;
-  }
-
   return (
     <AuthContext.Provider value={{
       session,
@@ -76,7 +72,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       signOut,
       isAuthenticated: session !== null
     }}>
-      {children}
+      {isLoading ? (
+        <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center flex-col gap-4">
+          <div className="w-12 h-12 rounded-xl bg-orange-500/20 border border-orange-500/40 flex items-center justify-center">
+            <span className="text-orange-500 font-black text-xl">S</span>
+          </div>
+          <div className="text-orange-500 font-mono text-xs tracking-widest animate-pulse uppercase">
+            Spartan Bet — Chargement...
+          </div>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };
