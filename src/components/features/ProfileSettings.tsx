@@ -201,10 +201,10 @@ export const ProfileSettings: React.FC = () => {
                   className="bg-[#0A0A0B] border border-white/5 rounded-lg p-2.5 w-full text-xs font-mono text-white text-center font-bold focus:outline-none focus:border-orange-500"
                 >
                   <option value="₦">NGN (₦)</option>
-                  <option value="€">EUR (€)</option>
                   <option value="$">USD ($)</option>
+                  <option value="€">EUR (€)</option>
                   <option value="£">GBP (£)</option>
-                  <option value="₣">CHF (₣)</option>
+                  <option value="CFA">XOF (CFA)</option>
                 </select>
               </div>
             </div>
