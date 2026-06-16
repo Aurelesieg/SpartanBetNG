@@ -74,10 +74,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }}>
       {isLoading ? (
         <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center flex-col gap-4">
-          <div className="w-12 h-12 rounded-xl bg-orange-500/20 border border-orange-500/40 flex items-center justify-center">
-            <span className="text-orange-500 font-black text-xl">S</span>
+          <div className="w-12 h-12 rounded-xl bg-[#0099FF]/20 border border-[#0099FF]/40 flex items-center justify-center">
+            <span className="text-[#0099FF] font-black text-xl">S</span>
           </div>
-          <div className="text-orange-500 font-mono text-xs tracking-widest animate-pulse uppercase">
+          <div className="text-[#0099FF] font-mono text-xs tracking-widest animate-pulse uppercase">
             Spartan Bet — Chargement...
           </div>
         </div>

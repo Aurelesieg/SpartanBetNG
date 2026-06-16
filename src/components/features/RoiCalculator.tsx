@@ -67,13 +67,13 @@ export const RoiCalculator: React.FC = () => {
   return (
     <div className="bg-[#131316] border border-white/5 rounded-3xl p-5 md:p-6 space-y-5 relative">
       {/* Tiny top glow */}
-      <div className="absolute top-0 right-1/4 w-32 h-1 bg-gradient-to-r from-transparent via-orange-500/25 to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-32 h-1 bg-gradient-to-r from-transparent via-[#0099FF]/25 to-transparent pointer-events-none" />
 
       {/* Section title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
         <div className="flex items-center gap-2.5">
-          <span className="p-2 rounded-xl bg-orange-600/10 text-orange-500">
-            <Calculator className="w-5 h-5 text-orange-500" />
+          <span className="p-2 rounded-xl bg-[#007ACC]/10 text-[#0099FF]">
+            <Calculator className="w-5 h-5 text-[#0099FF]" />
           </span>
           <div>
             <h3 className="font-bold text-white text-sm tracking-tight uppercase italic flex items-center gap-1.5">
@@ -94,7 +94,7 @@ export const RoiCalculator: React.FC = () => {
         {/* Input Parameters (4 cols) */}
         <div className="lg:col-span-4 bg-[#0A0A0B] border border-white/5 rounded-2xl p-4.5 space-y-4">
           <div className="border-b border-white/5 pb-2">
-            <span className="text-[9px] font-mono font-bold text-orange-500 uppercase tracking-widest block">
+            <span className="text-[9px] font-mono font-bold text-[#0099FF] uppercase tracking-widest block">
               {isFr ? 'COEFFICIENTS PARI' : 'TICKET COMPOSITION VALUES'}
             </span>
             <h4 className="text-xs font-bold text-white uppercase italic mt-0.5">
@@ -118,7 +118,7 @@ export const RoiCalculator: React.FC = () => {
                   min="1"
                   value={stake}
                   onChange={(e) => setStake(e.target.value)}
-                  className="w-full text-xs font-bold pl-8 pr-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all font-mono"
+                  className="w-full text-xs font-bold pl-8 pr-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF] transition-all font-mono"
                   required
                 />
               </div>
@@ -135,7 +135,7 @@ export const RoiCalculator: React.FC = () => {
                 min="1.01"
                 value={odds}
                 onChange={(e) => setOdds(e.target.value)}
-                className="w-full text-xs font-bold px-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all font-mono"
+                className="w-full text-xs font-bold px-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF] transition-all font-mono"
                 required
               />
             </div>
@@ -157,11 +157,11 @@ export const RoiCalculator: React.FC = () => {
                   max="95"
                   value={winProb}
                   onChange={(e) => setWinProb(e.target.value)}
-                  className="w-full accent-orange-500 h-1 bg-[#131115] rounded-lg cursor-pointer"
+                  className="w-full accent-[#0099FF] h-1 bg-[#131115] rounded-lg cursor-pointer"
                 />
                 <div className="flex justify-between items-center mt-1">
                   <span className="text-[8px] font-mono text-neutral-600">5% (Hard)</span>
-                  <span className="text-xs font-black font-mono text-orange-500 bg-orange-650/10 px-2 py-0.5 rounded">
+                  <span className="text-xs font-black font-mono text-[#0099FF] bg-[#007ACC]/10 px-2 py-0.5 rounded">
                     {winProb}%
                   </span>
                   <span className="text-[8px] font-mono text-neutral-600">95% (Lock)</span>
@@ -174,7 +174,7 @@ export const RoiCalculator: React.FC = () => {
         {/* Profitability Outcomes (4 cols) */}
         <div className="lg:col-span-4 bg-[#0A0A0B] border border-white/5 rounded-2xl p-4.5 flex flex-col justify-between space-y-4">
           <div>
-            <span className="text-[9px] font-mono font-bold text-orange-500 uppercase tracking-widest block">
+            <span className="text-[9px] font-mono font-bold text-[#0099FF] uppercase tracking-widest block">
               {isFr ? 'POTENTIEL EN RETOUR' : 'CALCULATED RETURN MATRIX'}
             </span>
             <h4 className="text-xs font-bold text-white uppercase italic mt-0.5">
@@ -213,7 +213,7 @@ export const RoiCalculator: React.FC = () => {
                   {isFr ? 'Par rapport à la mise' : 'Based on wager fraction'}
                 </span>
               </div>
-              <span className="font-mono text-sm font-black text-orange-500">
+              <span className="font-mono text-sm font-black text-[#0099FF]">
                 +{singleBetYield.toFixed(0)}%
               </span>
             </div>
@@ -252,7 +252,7 @@ export const RoiCalculator: React.FC = () => {
         {/* Betting Efficiency & Portfolio Sizing (4 cols) */}
         <div className="lg:col-span-4 bg-[#0A0A0B] border border-white/5 rounded-2xl p-4.5 flex flex-col justify-between space-y-4">
           <div>
-            <span className="text-[9px] font-mono font-bold text-orange-500 uppercase tracking-widest block">
+            <span className="text-[9px] font-mono font-bold text-[#0099FF] uppercase tracking-widest block">
               {isFr ? 'EFFICACITÉ & GESTION DU RISQUE' : 'MATHEMATICAL SYSTEM EDGES'}
             </span>
             <h4 className="text-xs font-bold text-white uppercase italic mt-0.5">
@@ -296,7 +296,7 @@ export const RoiCalculator: React.FC = () => {
                   {safeFractionalKelly > 0 ? `${safeFractionalKelly.toFixed(1)}%` : '0% (Avoid)'}
                 </span>
                 {safeFractionalKelly > 0 && bankroll.isActive && (
-                  <span className="text-[9px] text-neutral-400 block font-bold text-orange-400">
+                  <span className="text-[9px] text-neutral-400 block font-bold text-[#33AAFF]">
                     ~ {suggestedStakeCurrency.toFixed(0)} {bankroll.currency}
                   </span>
                 )}
@@ -332,11 +332,11 @@ export const RoiCalculator: React.FC = () => {
       {/* 4. Mini Compounding Rollover Interactive Path Simulator */}
       <div className="bg-[#0A0A0B] border border-white/5 rounded-2xl p-4.5 space-y-4">
         <div>
-          <span className="text-[9px] font-mono font-bold text-orange-500 uppercase tracking-widest block">
+          <span className="text-[9px] font-mono font-bold text-[#0099FF] uppercase tracking-widest block">
             {isFr ? 'SIMULATION DE SÉRIES DE PREVISIONS (COMPOUND)' : 'MULTIPLE STEP COMPOUND PROGRESSION'}
           </span>
           <h4 className="text-xs font-bold text-white uppercase italic mt-0.5 flex items-center gap-1.5">
-            <Flame className="w-4 h-4 text-orange-500" />
+            <Flame className="w-4 h-4 text-[#0099FF]" />
             🔥 {isFr ? 'Simulateur de Montante / Rollover' : 'Rollover Strategy Sandbox'}
           </h4>
           <p className="text-[11px] text-neutral-400 mt-1 font-sans">
@@ -350,7 +350,7 @@ export const RoiCalculator: React.FC = () => {
           {rolloverValues.map((val, step) => (
             <div key={step} className="bg-[#131115] border border-white/5 rounded-xl p-3 flex flex-col justify-between items-center relative overflow-hidden">
               {step > 0 && (
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500/20 to-transparent" />
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#0099FF]/20 to-transparent" />
               )}
               <span className="text-[8px] font-mono font-bold text-neutral-500 uppercase">
                 {step === 0 ? (isFr ? 'DEPART / ACCUEIL' : 'INITIAL STAKE') : `STEP ${step}`}

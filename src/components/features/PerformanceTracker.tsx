@@ -15,7 +15,7 @@ const PSYCHOLOGICAL_TAGS = [
   { id: 'disciplined', labelEn: 'Disciplined 🛡️', labelFr: 'Discipliné 🛡️', color: 'border-indigo-500 bg-indigo-950/20 text-indigo-400' },
   { id: 'confident', labelEn: 'Confident 💪', labelFr: 'Confiant 💪', color: 'border-cyan-500 bg-cyan-950/20 text-cyan-400' },
   { id: 'fomo', labelEn: 'FOMO 📈', labelFr: 'FOMO 📈', color: 'border-amber-500 bg-amber-950/20 text-amber-500' },
-  { id: 'impulsive', labelEn: 'Impulsive ⚡', labelFr: 'Impulsif ⚡', color: 'border-orange-500 bg-orange-950/20 text-orange-400' },
+  { id: 'impulsive', labelEn: 'Impulsive ⚡', labelFr: 'Impulsif ⚡', color: 'border-[#0099FF] bg-[#001A33]/20 text-[#33AAFF]' },
   { id: 'tilt', labelEn: 'Tilt 😡', labelFr: 'Tilt 😡', color: 'border-rose-500 bg-rose-950/20 text-rose-400' },
   { id: 'bored', labelEn: 'Bored 💤', labelFr: 'Ennui 💤', color: 'border-stone-500 bg-stone-950/20 text-stone-400' },
 ];
@@ -150,7 +150,7 @@ export const PerformanceTracker: React.FC = () => {
             {isFr ? 'Sur le capital de départ' : 'On the initial pool'}
           </span>
           <div className="absolute right-3 top-3 text-stone-600">
-            <Activity className="w-5 h-5 text-orange-500/30" />
+            <Activity className="w-5 h-5 text-[#0099FF]/30" />
           </div>
         </div>
 
@@ -160,7 +160,7 @@ export const PerformanceTracker: React.FC = () => {
             YELD % (RENDEMENT MENS)
           </span>
           <div className="flex items-baseline gap-2 mt-2">
-            <span className={`text-xl sm:text-2xl font-mono font-black ${yieldRatio >= 0 ? 'text-orange-500' : 'text-rose-400'}`}>
+            <span className={`text-xl sm:text-2xl font-mono font-black ${yieldRatio >= 0 ? 'text-[#0099FF]' : 'text-rose-400'}`}>
               {yieldRatio >= 0 ? '+' : ''}{yieldRatio.toFixed(1)}%
             </span>
           </div>
@@ -168,7 +168,7 @@ export const PerformanceTracker: React.FC = () => {
             {isFr ? 'Par rapport au volume' : 'On graded volume'}
           </span>
           <div className="absolute right-3 top-3 text-stone-600">
-            <TrendingUp className="w-5 h-5 text-orange-500/30" />
+            <TrendingUp className="w-5 h-5 text-[#0099FF]/30" />
           </div>
         </div>
 
@@ -186,7 +186,7 @@ export const PerformanceTracker: React.FC = () => {
             {wonBets.length} {isFr ? 'gagnés' : 'won'} / {gradedBets.length} {isFr ? 'résolus' : 'graded'}
           </span>
           <div className="absolute right-3 top-3 text-stone-600">
-            <BarChart3 className="w-5 h-5 text-orange-500/30" />
+            <BarChart3 className="w-5 h-5 text-[#0099FF]/30" />
           </div>
         </div>
 
@@ -204,7 +204,7 @@ export const PerformanceTracker: React.FC = () => {
             {isFr ? 'Volume engagé :' : 'Volume wagered:'} {totalStakedVolume.toLocaleString('fr-FR')} {bankroll.currency}
           </span>
           <div className="absolute right-3 top-3 text-stone-600">
-            <PieChart className="w-5 h-5 text-orange-500/30" />
+            <PieChart className="w-5 h-5 text-[#0099FF]/30" />
           </div>
         </div>
 
@@ -221,7 +221,7 @@ export const PerformanceTracker: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans">
-                <CircleDot className="w-4 h-4 text-orange-500" />
+                <CircleDot className="w-4 h-4 text-[#0099FF]" />
                 {isFr ? 'Courbe d’Évolution du Capital' : 'Bankroll Ledger Trend'}
               </h3>
               <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
@@ -311,7 +311,7 @@ export const PerformanceTracker: React.FC = () => {
         <div className="lg:col-span-4 bg-[#131316] border border-white/5 rounded-3xl p-5 md:p-6 flex flex-col justify-between space-y-4">
           <div>
             <h3 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans">
-              <PieChart className="w-4 h-4 text-orange-500" />
+              <PieChart className="w-4 h-4 text-[#0099FF]" />
               {isFr ? 'Répartition par Discipline' : 'Sports Diversification'}
             </h3>
             <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
@@ -328,11 +328,11 @@ export const PerformanceTracker: React.FC = () => {
                   <div key={sport} className="space-y-1.5 text-xs">
                     <div className="flex justify-between items-center">
                       <span className="text-stone-300 font-medium">{sport}</span>
-                      <strong className="text-orange-500 font-mono">{percentage}% ({count})</strong>
+                      <strong className="text-[#0099FF] font-mono">{percentage}% ({count})</strong>
                     </div>
                     <div className="w-full bg-[#0A0A0B] h-2.5 rounded-full overflow-hidden border border-white/10">
                       <div 
-                        className="bg-orange-500 h-full rounded-full"
+                        className="bg-[#0099FF] h-full rounded-full"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -400,7 +400,7 @@ export const PerformanceTracker: React.FC = () => {
                       <td className="px-4 py-4.5 font-medium text-stone-300">
                         {bet.prediction}
                       </td>
-                      <td className="px-4 py-4.5 text-center font-mono font-bold text-orange-500">
+                      <td className="px-4 py-4.5 text-center font-mono font-bold text-[#0099FF]">
                         {bet.odds.toFixed(2)}
                       </td>
                       <td className="px-4 py-4.5 text-right font-mono">
@@ -439,10 +439,10 @@ export const PerformanceTracker: React.FC = () => {
                           }}
                           className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all border cursor-pointer select-none ${
                             expandedBetId === bet.id
-                              ? 'bg-orange-500/10 border-orange-500 text-orange-400'
+                              ? 'bg-[#0099FF]/10 border-[#0099FF] text-[#33AAFF]'
                               : hasNotesOrTags
-                                ? 'bg-orange-950/20 border-orange-500/30 text-orange-450 hover:bg-orange-950/40'
-                                : 'bg-transparent border-dashed border-white/10 text-neutral-500 hover:border-orange-500 hover:text-orange-400'
+                                ? 'bg-[#001A33]/20 border-[#0099FF]/30 text-[#33AAFF] hover:bg-[#001A33]/40'
+                                : 'bg-transparent border-dashed border-white/10 text-neutral-500 hover:border-[#0099FF] hover:text-[#33AAFF]'
                           }`}
                         >
                           {hasNotesOrTags ? (
@@ -450,7 +450,7 @@ export const PerformanceTracker: React.FC = () => {
                               <FileText className="w-3.5 h-3.5" />
                               {isFr ? 'Visualiser' : 'ViewNotes'}
                               {bet.psychologicalTags && bet.psychologicalTags.length > 0 && (
-                                <span className="bg-orange-500 text-neutral-950 rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8.5px] font-bold font-sans">
+                                <span className="bg-[#0099FF] text-neutral-950 rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8.5px] font-bold font-sans">
                                   {bet.psychologicalTags.length}
                                 </span>
                               )}
@@ -470,7 +470,7 @@ export const PerformanceTracker: React.FC = () => {
                           <div className="space-y-4">
                             <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
                               <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-wider font-mono flex items-center gap-2">
-                                <Brain className="w-4 h-4 text-orange-500 animate-pulse" />
+                                <Brain className="w-4 h-4 text-[#0099FF] animate-pulse" />
                                 {isFr ? "CONTRÔLE PSYCHOLOGIQUE ET RIGUEUR DU PARI" : "COGNITIVE STABILITY & TRADING DISCIPLINE"}
                               </span>
                               <div className="flex gap-2">
@@ -504,7 +504,7 @@ export const PerformanceTracker: React.FC = () => {
                                         setEditNotesText(bet.notes || '');
                                         setEditTags(bet.psychologicalTags || []);
                                       }}
-                                      className="inline-flex items-center gap-1 bg-orange-600 hover:bg-orange-505 text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md cursor-pointer transition-colors shadow-sm"
+                                      className="inline-flex items-center gap-1 bg-[#007ACC] hover:bg-[#E5F4FF]5 text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md cursor-pointer transition-colors shadow-sm"
                                     >
                                       <Edit2 className="w-3 h-3" />
                                       {isFr ? 'Modifier les notes' : 'Edit notes'}
@@ -532,7 +532,7 @@ export const PerformanceTracker: React.FC = () => {
                                     onChange={(e) => setEditNotesText(e.target.value)}
                                     placeholder={isFr ? 'Notez les raisons tactiques objectives, sentiment de fatigue, respect irréprochable de la charte...' : 'Record structural H2H analysis, sleep quality, compliance warning...'}
                                     rows={3}
-                                    className="w-full text-xs font-sans bg-neutral-950 border border-white/5 rounded-xl p-3 text-white focus:outline-none focus:border-orange-500 resize-none leading-relaxed"
+                                    className="w-full text-xs font-sans bg-neutral-950 border border-white/5 rounded-xl p-3 text-white focus:outline-none focus:border-[#0099FF] resize-none leading-relaxed"
                                   />
                                 </div>
 
@@ -557,7 +557,7 @@ export const PerformanceTracker: React.FC = () => {
                                           }}
                                           className={`px-2 py-1 rounded-md text-[9px] font-mono font-bold transition-all border cursor-pointer select-none ${
                                             isSelected
-                                              ? 'bg-orange-500/15 border-orange-500 text-orange-400 font-extrabold'
+                                              ? 'bg-[#0099FF]/15 border-[#0099FF] text-[#33AAFF] font-extrabold'
                                               : 'bg-neutral-950 border-white/5 text-neutral-400 hover:bg-neutral-900 hover:text-white'
                                           }`}
                                         >
@@ -574,7 +574,7 @@ export const PerformanceTracker: React.FC = () => {
                                 <div className="md:col-span-8 bg-neutral-950/50 p-4 rounded-xl border border-white/5">
                                   <label className="text-[9px] font-mono font-bold text-neutral-500 block uppercase mb-1.5">{isFr ? 'Raisons qualitatives rattachées' : 'Qualitative reasons'}</label>
                                   {bet.notes ? (
-                                    <p className="text-stone-105 text-xs italic leading-relaxed font-sans font-medium pl-3 border-l-2 border-orange-500">
+                                    <p className="text-stone-105 text-xs italic leading-relaxed font-sans font-medium pl-3 border-l-2 border-[#0099FF]">
                                       "{bet.notes}"
                                     </p>
                                   ) : (

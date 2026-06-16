@@ -311,8 +311,8 @@ export const BankrollManager: React.FC = () => {
       {/* Tool Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
         <div className="flex items-center gap-2.5">
-          <span className="p-2 rounded-xl bg-orange-600/10 text-orange-500">
-            <PiggyBank className="w-5 h-5 text-orange-500" />
+          <span className="p-2 rounded-xl bg-[#007ACC]/10 text-[#0099FF]">
+            <PiggyBank className="w-5 h-5 text-[#0099FF]" />
           </span>
           <div>
             <h3 className="font-bold text-white text-sm tracking-tight uppercase italic flex items-center gap-1.5">
@@ -330,7 +330,7 @@ export const BankrollManager: React.FC = () => {
             onClick={() => setActiveTab('deposit')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'deposit' 
-                ? 'bg-orange-600 text-white shadow' 
+                ? 'bg-[#007ACC] text-white shadow'
                 : 'text-neutral-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -340,7 +340,7 @@ export const BankrollManager: React.FC = () => {
             onClick={() => setActiveTab('withdrawal')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'withdrawal' 
-                ? 'bg-orange-600 text-white shadow' 
+                ? 'bg-[#007ACC] text-white shadow'
                 : 'text-neutral-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -350,7 +350,7 @@ export const BankrollManager: React.FC = () => {
             onClick={() => setActiveTab('adjustment')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'adjustment' 
-                ? 'bg-orange-600 text-white shadow' 
+                ? 'bg-[#007ACC] text-white shadow'
                 : 'text-neutral-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -364,7 +364,7 @@ export const BankrollManager: React.FC = () => {
         {/* Left Interactive Tool Panel (5 cols) */}
         <div className="lg:col-span-5 bg-[#0A0A0B] border border-white/5 rounded-2xl p-5 space-y-4">
           <div className="border-b border-white/5 pb-2">
-            <span className="text-[9px] font-mono font-bold text-orange-500 uppercase tracking-widest block">
+            <span className="text-[9px] font-mono font-bold text-[#0099FF] uppercase tracking-widest block">
               {isFr ? 'ENREGISTRER UN FLUX' : 'POST ENTRY TO GENERAL LEDGER'}
             </span>
             <h4 className="text-xs font-bold text-white uppercase italic mt-0.5">
@@ -391,7 +391,7 @@ export const BankrollManager: React.FC = () => {
                     min="1"
                     value={amountInput}
                     onChange={e => setAmountInput(e.target.value)}
-                    className="w-full text-sm font-bold pl-8 pr-4 py-2 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all font-mono"
+                    className="w-full text-sm font-bold pl-8 pr-4 py-2 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF] transition-all font-mono"
                     required
                   />
                 </div>
@@ -411,7 +411,7 @@ export const BankrollManager: React.FC = () => {
                   }
                   value={descInput}
                   onChange={e => setDescInput(e.target.value)}
-                  className="w-full text-xs px-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-orange-500 focus:outline-none transition-all placeholder:text-neutral-600"
+                  className="w-full text-xs px-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-[#0099FF] focus:outline-none transition-all placeholder:text-neutral-600"
                   maxLength={50}
                 />
               </div>
@@ -440,7 +440,7 @@ export const BankrollManager: React.FC = () => {
                 className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 ${
                   activeTab === 'deposit'
                     ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.2)]'
-                    : 'bg-orange-600 hover:bg-orange-500 text-white shadow-[0_4px_12px_rgba(249,115,22,0.2)]'
+                    : 'bg-[#007ACC] hover:bg-[#0099FF] text-white shadow-[0_4px_12px_rgba(0,153,255,0.2)]'
                 }`}
               >
                 {activeTab === 'deposit' ? <Plus className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
@@ -469,7 +469,7 @@ export const BankrollManager: React.FC = () => {
                     min="0"
                     value={balanceInput}
                     onChange={e => setBalanceInput(e.target.value)}
-                    className="w-full text-sm pl-8 pr-4 py-2 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all font-mono font-bold"
+                    className="w-full text-sm pl-8 pr-4 py-2 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF] transition-all font-mono font-bold"
                     required
                   />
                 </div>
@@ -485,7 +485,7 @@ export const BankrollManager: React.FC = () => {
                   placeholder={isFr ? 'e.g. Synchronisation du capital de départ' : 'e.g. Syncing live exchange balance'}
                   value={descInput}
                   onChange={e => setDescInput(e.target.value)}
-                  className="w-full text-xs px-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-orange-500 focus:outline-none transition-all placeholder:text-neutral-600"
+                  className="w-full text-xs px-3.5 py-2.5 bg-[#131115] border border-white/10 rounded-xl text-white focus:border-[#0099FF] focus:outline-none transition-all placeholder:text-neutral-600"
                   maxLength={50}
                 />
               </div>
@@ -511,7 +511,7 @@ export const BankrollManager: React.FC = () => {
               {/* Action Button */}
               <button
                 type="submit"
-                className="w-full py-3 px-4 bg-orange-600 hover:bg-orange-500 text-white font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(249,115,22,0.2)]"
+                className="w-full py-3 px-4 bg-[#007ACC] hover:bg-[#0099FF] text-white font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(0,153,255,0.2)]"
               >
                 <Settings className="w-4 h-4" />
                 {isFr ? 'Forcer la balance' : 'Force balance rewrite'}
@@ -521,7 +521,7 @@ export const BankrollManager: React.FC = () => {
 
           {/* Quick Informational Guard */}
           <div className="bg-[#131115] border border-white/5 rounded-xl p-3 flex gap-2.5">
-            <Coins className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
+            <Coins className="w-4 h-4 text-[#0099FF] shrink-0 mt-0.5" />
             <p className="text-[10px] leading-relaxed text-neutral-500 font-mono">
               🛡️ {isFr 
                 ? 'Les ajustements manuels mettent à jour instantanément la balance globale affichée sur l’ensemble de SpartanBet.' 
@@ -535,7 +535,7 @@ export const BankrollManager: React.FC = () => {
           <div>
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[9px] font-mono font-black text-orange-500 uppercase tracking-widest block">
+                <span className="text-[9px] font-mono font-black text-[#0099FF] uppercase tracking-widest block">
                   {isFr ? 'COURBE D’ÉQUITÉ TOTALE' : 'TOTAL CAPITAL EQUITY TIMELINE'}
                 </span>
                 <h4 className="text-xs font-bold text-white uppercase italic mt-0.5">
@@ -693,7 +693,7 @@ export const BankrollManager: React.FC = () => {
                         tx.type === 'deposit' 
                           ? 'bg-emerald-950/40 text-emerald-400 border border-emerald-900/30' 
                           : tx.type === 'withdrawal'
-                            ? 'bg-orange-950/40 text-orange-400 border border-orange-900/30'
+                            ? 'bg-[#001A33]/40 text-[#33AAFF] border border-[#002B52]/30'
                             : 'bg-blue-950/40 text-blue-400 border border-blue-900/30'
                       }`}>
                         {tx.type === 'deposit' && (isFr ? 'Dépôt' : 'Deposit')}
@@ -702,7 +702,7 @@ export const BankrollManager: React.FC = () => {
                       </span>
                     </td>
                     <td className={`px-4 py-3 text-right font-mono font-bold ${
-                      tx.type === 'deposit' ? 'text-emerald-400' : tx.type === 'withdrawal' ? 'text-orange-500' : 'text-blue-450'
+                      tx.type === 'deposit' ? 'text-emerald-400' : tx.type === 'withdrawal' ? 'text-[#0099FF]' : 'text-blue-450'
                     }`}>
                       {tx.type === 'deposit' ? '+' : tx.type === 'withdrawal' ? '-' : ''}
                       {tx.amount.toLocaleString()} {bankroll.currency}

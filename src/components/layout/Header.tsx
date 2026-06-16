@@ -84,31 +84,18 @@ export const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         {/* Brand Logo & Name */}
-        <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-orange-600 to-orange-500 text-white font-black shadow-[0_0_15px_rgba(249,115,22,0.3)]">
-            <span className="italic font-bold text-lg">S</span>
-            {user.role === 'premium' && (
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-              </span>
-            )}
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs uppercase tracking-widest text-orange-500 font-bold">
-                Alpha 1.0
-              </span>
-              <span className={`h-1 w-1 rounded-full ${user.theme === 'dark' ? 'bg-neutral-700' : 'bg-neutral-300'}`}></span>
-              <span className={`font-mono text-[10px] uppercase tracking-wider ${user.theme === 'dark' ? 'text-neutral-400' : 'text-neutral-500'}`}>
-                {user.role === 'premium' ? 'Premium Profile' : 'Standard'}
-              </span>
-            </div>
-            <h1 className="text-xl font-bold tracking-tighter text-white flex items-center gap-1.5 font-sans uppercase italic">
-              <span className={user.theme === 'dark' ? 'text-white' : 'text-stone-900'}>SPARTAN</span>
-              <span className="text-orange-500">BET</span>
-            </h1>
-          </div>
+        <div className="flex items-center gap-2">
+          <img
+            src="/assets/spartan-loader.png"
+            alt="SpartanBet"
+            className="h-8 w-auto object-contain"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+          />
+          {/* Fallback: text wordmark */}
+          <span className="font-black text-white font-mono tracking-tight
+                           text-sm hidden sm:block">
+            SPARTAN<span className="text-[#0099FF]">BET</span>
+          </span>
         </div>
 
         {/* Global Stats / Quick view */}
@@ -121,7 +108,7 @@ export const Header: React.FC = () => {
                 ? 'bg-white/5 border-white/5 hover:bg-white/10'
                 : 'bg-stone-100 border-stone-200 hover:bg-stone-200/80'
             }`}>
-              <Coins className="w-4 h-4 text-orange-500" />
+              <Coins className="w-4 h-4 text-[#0099FF]" />
               <div className="text-right">
                 <span className={`block text-[9px] uppercase tracking-wider font-bold ${
                   user.theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
@@ -142,7 +129,7 @@ export const Header: React.FC = () => {
             <button
               id="quick-add-bet-btn"
               onClick={() => setShowQuickAdd(true)}
-              className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded bg-orange-600/10 border border-orange-500/20 hover:border-orange-500/50 hover:bg-orange-600/20 text-orange-400 transition-all cursor-pointer uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] focus:outline-none"
+              className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded bg-[#007ACC]/10 border border-[#0099FF]/20 hover:border-[#0099FF]/50 hover:bg-[#007ACC]/20 text-[#33AAFF] transition-all cursor-pointer uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] focus:outline-none"
               title={isFr ? 'Ajouter rapidement un pari' : 'Quickly record custom bet ticket'}
             >
               <Plus className="w-3.5 h-3.5" />
@@ -161,13 +148,13 @@ export const Header: React.FC = () => {
             onClick={togglePremium}
             className={`flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded transition-all duration-200 cursor-pointer uppercase tracking-wider ${
               user.role === 'premium'
-                ? 'bg-orange-600 hover:bg-orange-500 text-white font-bold shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:scale-[1.02] active:scale-[0.98]'
+                ? 'bg-[#007ACC] hover:bg-[#0099FF] text-white font-bold shadow-[0_0_15px_rgba(0,153,255,0.4)] hover:scale-[1.02] active:scale-[0.98]'
                 : (user.theme === 'dark'
                     ? 'bg-white/5 hover:bg-white/10 text-neutral-300 border border-white/10'
                     : 'bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200')
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+            <Sparkles className="w-3.5 h-3.5 text-[#0099FF]" />
             <span className="hidden sm:inline">
               {user.role === 'premium' 
                 ? (isFr ? 'PRO PREMIUM' : 'PRO ACTIVE') 
@@ -188,7 +175,7 @@ export const Header: React.FC = () => {
             >
               <Bell className="w-4 h-4" />
               {notifications.some(n => !n.isRead) && (
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-600 text-[10px] font-black text-white font-mono animate-pulse">
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#007ACC] text-[10px] font-black text-white font-mono animate-pulse">
                   {notifications.filter(n => !n.isRead).length}
                 </span>
               )}
@@ -209,7 +196,7 @@ export const Header: React.FC = () => {
                 }`}>
                   <div className="flex items-center justify-between border-b pb-3 mb-3 border-white/5">
                     <div className="flex items-center gap-1.5 flex-1 select-none">
-                      <Bell className="w-4 h-4 text-orange-500" />
+                      <Bell className="w-4 h-4 text-[#0099FF]" />
                       <h4 className="font-bold text-xs tracking-tight uppercase italic">{isFr ? 'Dernières Alertes' : 'Recent Alerts'}</h4>
                     </div>
                     <div className="flex items-center gap-2">
@@ -217,7 +204,7 @@ export const Header: React.FC = () => {
                         onClick={() => {
                           markAllNotificationsAsRead();
                         }}
-                        className="text-[10px] text-orange-500 font-bold uppercase tracking-wider hover:underline cursor-pointer"
+                        className="text-[10px] text-[#0099FF] font-bold uppercase tracking-wider hover:underline cursor-pointer"
                         title={isFr ? 'Marquer tout comme lu' : 'Mark all as read'}
                       >
                         {isFr ? 'Tout lu' : 'All Read'}
@@ -244,7 +231,7 @@ export const Header: React.FC = () => {
                       </div>
                     ) : (
                       notifications.map(notif => {
-                        let iconNode = <span className="p-1 rounded bg-orange-650/10 text-orange-400 text-xs select-none">🔔</span>;
+                        let iconNode = <span className="p-1 rounded bg-[#007ACC]/10 text-[#33AAFF] text-xs select-none">🔔</span>;
                         if (notif.type === 'bet_outcome') {
                           iconNode = notif.outcome === 'won' ? (
                             <span className="p-1 rounded bg-emerald-950 text-emerald-400 text-xs font-bold leading-none select-none">🏆</span>
@@ -271,7 +258,7 @@ export const Header: React.FC = () => {
                             className={`p-3 rounded-xl border text-left transition-all relative flex gap-3 cursor-pointer ${
                               notif.isRead 
                                 ? (user.theme === 'dark' ? 'bg-[#0A0A0B]/40 border-white/5 opacity-65' : 'bg-stone-50 border-stone-100 opacity-65')
-                                : (user.theme === 'dark' ? 'bg-[#18181C] border-orange-500/10 hover:border-orange-500/20' : 'bg-orange-50/40 border-orange-200 hover:border-orange-300')
+                                : (user.theme === 'dark' ? 'bg-[#18181C] border-[#0099FF]/10 hover:border-[#0099FF]/20' : 'bg-[#E5F4FF]/40 border-[#99DAFF] hover:border-[#66C7FF]')
                             }`}
                           >
                             <div className="self-start shrink-0">{iconNode}</div>
@@ -291,7 +278,7 @@ export const Header: React.FC = () => {
                               </span>
                             </div>
                             {!notif.isRead && (
-                              <span className="absolute top-3 right-3 h-1.5 w-1.5 rounded-full bg-orange-500" />
+                              <span className="absolute top-3 right-3 h-1.5 w-1.5 rounded-full bg-[#0099FF]" />
                             )}
                           </div>
                         );
@@ -334,7 +321,7 @@ export const Header: React.FC = () => {
               id="theme-toggle-btn"
             >
               {user.theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-orange-500" />
+                <Sun className="w-4 h-4 text-[#0099FF]" />
               ) : (
                 <Moon className="w-4 h-4 text-stone-500" />
               )}
@@ -373,7 +360,7 @@ export const Header: React.FC = () => {
               {/* modal header */}
               <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-5">
                 <div className="flex items-center gap-2">
-                  <span className="p-1.5 rounded bg-orange-500/10 text-orange-500">
+                  <span className="p-1.5 rounded bg-[#0099FF]/10 text-[#0099FF]">
                     <Plus className="w-4 h-4" />
                   </span>
                   <div>
@@ -409,8 +396,8 @@ export const Header: React.FC = () => {
                       placeholder="e.g. Real Madrid"
                       className={`w-full text-xs px-3 py-2 rounded-lg border transition-all ${
                         user.theme === 'dark'
-                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-orange-500/50 focus:outline-none'
-                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-orange-500 focus:outline-none'
+                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-[#0099FF]/50 focus:outline-none'
+                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-[#0099FF] focus:outline-none'
                       }`}
                       required
                       autoFocus
@@ -427,8 +414,8 @@ export const Header: React.FC = () => {
                       placeholder="e.g. Man City"
                       className={`w-full text-xs px-3 py-2 rounded-lg border transition-all ${
                         user.theme === 'dark'
-                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-orange-500/50 focus:outline-none'
-                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-orange-500 focus:outline-none'
+                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-[#0099FF]/50 focus:outline-none'
+                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-[#0099FF] focus:outline-none'
                       }`}
                       required
                     />
@@ -447,8 +434,8 @@ export const Header: React.FC = () => {
                     placeholder={isFr ? 'Match nul ou Victoire, Moins de 2.5 buts...' : 'e.g. Draw or away win, Over 2.5 goals'}
                     className={`w-full text-xs px-3 py-2 rounded-lg border transition-all ${
                       user.theme === 'dark'
-                        ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-orange-500/50 focus:outline-none'
-                        : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-orange-500 focus:outline-none'
+                        ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-[#0099FF]/50 focus:outline-none'
+                        : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-[#0099FF] focus:outline-none'
                     }`}
                     required
                   />
@@ -469,8 +456,8 @@ export const Header: React.FC = () => {
                       placeholder="1.85"
                       className={`w-full text-xs px-3 py-2 rounded-lg border transition-all font-mono ${
                         user.theme === 'dark'
-                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-orange-500/50 focus:outline-none'
-                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-orange-500 focus:outline-none'
+                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-[#0099FF]/50 focus:outline-none'
+                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-[#0099FF] focus:outline-none'
                       }`}
                       required
                     />
@@ -482,7 +469,7 @@ export const Header: React.FC = () => {
                       </label>
                       {Number(stakeAmount) > 0 && bankroll.balance > 0 && (
                         <span className={`text-[8px] font-mono font-bold ${
-                          (Number(stakeAmount) / bankroll.balance) * 100 > 5 ? 'text-orange-500 font-black' : 'text-neutral-500'
+                          (Number(stakeAmount) / bankroll.balance) * 100 > 5 ? 'text-[#0099FF] font-black' : 'text-neutral-500'
                         }`}>
                           {((Number(stakeAmount) / bankroll.balance) * 100).toFixed(1)}% {isFr ? 'capital' : 'bankroll'}
                         </span>
@@ -497,8 +484,8 @@ export const Header: React.FC = () => {
                       placeholder="50"
                       className={`w-full text-xs px-3 py-2 rounded-lg border transition-all font-mono ${
                         user.theme === 'dark'
-                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-orange-500/50 focus:outline-none'
-                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-orange-500 focus:outline-none'
+                          ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-[#0099FF]/50 focus:outline-none'
+                          : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-[#0099FF] focus:outline-none'
                       }`}
                       required
                     />
@@ -559,8 +546,8 @@ export const Header: React.FC = () => {
                     rows={2}
                     className={`w-full text-xs px-3 py-2 rounded-lg border transition-all resize-none ${
                       user.theme === 'dark'
-                        ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-orange-500/50 focus:outline-none'
-                        : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-orange-500 focus:outline-none'
+                        ? 'bg-[#0A0A0B] border-white/5 text-white focus:border-[#0099FF]/50 focus:outline-none'
+                        : 'bg-stone-50 border-stone-200 text-stone-900 focus:border-[#0099FF] focus:outline-none'
                     }`}
                   />
                 </div>
@@ -594,7 +581,7 @@ export const Header: React.FC = () => {
                           }}
                           className={`px-2 py-1 rounded-md text-[9px] font-mono font-bold transition-all border cursor-pointer select-none ${
                             isSelected
-                              ? 'bg-orange-500/15 border-orange-500 text-orange-400 font-extrabold'
+                              ? 'bg-[#0099FF]/15 border-[#0099FF] text-[#33AAFF] font-extrabold'
                               : 'bg-[#0A0A0B] border-white/5 text-neutral-400 hover:text-white hover:bg-white/5'
                           }`}
                         >
@@ -627,7 +614,7 @@ export const Header: React.FC = () => {
                   </button>
                   <button
                     type="submit"
-                    className="py-2.5 rounded-lg bg-orange-650 bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold uppercase tracking-wider font-mono transition-all cursor-pointer shadow-[0_4px_12px_rgba(249,115,22,0.3)] hover:scale-[1.01] active:scale-[0.99]"
+                    className="py-2.5 rounded-lg bg-[#007ACC] bg-[#007ACC] hover:bg-[#0099FF] text-white text-xs font-bold uppercase tracking-wider font-mono transition-all cursor-pointer shadow-[0_4px_12px_rgba(0,153,255,0.3)] hover:scale-[1.01] active:scale-[0.99]"
                   >
                     {isFr ? 'Confirmer' : 'Confirm Bet'}
                   </button>

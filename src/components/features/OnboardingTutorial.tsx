@@ -28,7 +28,7 @@ export const OnboardingTutorial: React.FC = () => {
         ? "La seule plateforme d'investissement sportif qui remplace l'obsession du jeu par la discipline rigoureuse des Spartans." 
         : "The only sports investing workspace built to replace gambling behavior with rigid Spartan discipline.",
       targetTab: "dashboard",
-      icon: <Shield className="w-8 h-8 text-orange-500" />,
+      icon: <Shield className="w-8 h-8 text-[#0099FF]" />,
       highlight: isFr 
         ? "Dans cette courte présentation, nous allons vous armer avec les outils clés pour optimiser votre capital."
         : "In this walkthrough, we will arm you with the essential widgets to defend and double your bankroll."
@@ -104,7 +104,7 @@ export const OnboardingTutorial: React.FC = () => {
     <AnimatePresence>
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         {/* Subtle decorative spotlight backdrops */}
-        <div className="absolute inset-x-0 top-1/4 h-96 bg-orange-600/10 rounded-full blur-[120px] pointer-events-none select-none" />
+        <div className="absolute inset-x-0 top-1/4 h-96 bg-[#007ACC]/10 rounded-full blur-[120px] pointer-events-none select-none" />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -118,7 +118,7 @@ export const OnboardingTutorial: React.FC = () => {
               <div 
                 key={i} 
                 className={`transition-all duration-300 ${
-                  i <= onboardingStep ? 'bg-orange-500' : 'bg-transparent'
+                  i <= onboardingStep ? 'bg-[#0099FF]' : 'bg-transparent'
                 }`}
               />
             ))}
@@ -141,7 +141,7 @@ export const OnboardingTutorial: React.FC = () => {
 
             {/* Title & Body */}
             <div className="space-y-3">
-              <span className="text-[10px] uppercase tracking-widest font-mono font-bold text-orange-500">
+              <span className="text-[10px] uppercase tracking-widest font-mono font-bold text-[#0099FF]">
                 {isFr ? `Étape ${onboardingStep + 1} sur ${steps.length}` : `Step ${onboardingStep + 1} of ${steps.length}`}
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-white italic tracking-tight uppercase">
@@ -185,7 +185,7 @@ export const OnboardingTutorial: React.FC = () => {
                 </button>
                 <button
                   onClick={handleNext}
-                  className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow-lg shadow-orange-950/20"
+                  className="bg-[#007ACC] hover:bg-[#0099FF] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow-lg shadow-[#001A33]/20"
                 >
                   <span>{onboardingStep === steps.length - 1 ? (isFr ? "Terminer !" : "Finish !") : (isFr ? "Suivant" : "Next")}</span>
                   {onboardingStep !== steps.length - 1 && <ChevronRight className="w-4 h-4 shrink-0" />}

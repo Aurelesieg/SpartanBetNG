@@ -18,7 +18,7 @@ export const SpartanSchool: React.FC = () => {
 
   const getCategoryColor = (cat: string) => {
     switch (cat) {
-      case 'Gestion': return 'bg-orange-500/10 text-orange-500 border-orange-500/20';
+      case 'Gestion': return 'bg-[#0099FF]/10 text-[#0099FF] border-[#0099FF]/20';
       case 'Mental': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
       case 'Débutant': return 'bg-sky-500/10 text-sky-400 border-sky-500/20';
       case 'Intermédiaire': return 'bg-purple-500/10 text-purple-400 border-purple-500/20';
@@ -54,11 +54,11 @@ export const SpartanSchool: React.FC = () => {
         <div className="bg-[#0A0A0B] border border-white/5 p-4 rounded-xl min-w-[200px] space-y-2">
           <div className="flex justify-between items-center text-xs">
             <span className="text-neutral-500 font-bold font-mono uppercase">{isFr ? 'PROGRESSION' : 'ACADEMY INDEX'}</span>
-            <strong className="text-orange-500 font-mono">{progressionPercent}%</strong>
+            <strong className="text-[#0099FF] font-mono">{progressionPercent}%</strong>
           </div>
           <div className="w-full bg-[#131316] h-2 rounded-full overflow-hidden border border-white/5">
             <div 
-              className="bg-orange-500 h-full transition-all duration-500"
+              className="bg-[#0099FF] h-full transition-all duration-500"
               style={{ width: `${progressionPercent}%` }}
             />
           </div>
@@ -86,7 +86,7 @@ export const SpartanSchool: React.FC = () => {
                   onClick={() => setActiveLesson(lesson)}
                   className={`w-full text-left p-4 rounded-2xl border transition-all duration-150 cursor-pointer ${
                     isSelected 
-                      ? 'bg-[#131316] border-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.1)]' 
+                      ? 'bg-[#131316] border-[#0099FF] shadow-[0_0_12px_rgba(0,153,255,0.1)]'
                       : 'bg-stone-900/40 border-stone-800 hover:border-stone-700 hover:bg-stone-900/60'
                   }`}
                 >
@@ -139,7 +139,7 @@ export const SpartanSchool: React.FC = () => {
               {/* Core Content paragraphs */}
               <div className="space-y-4">
                 <h4 className="text-xs text-neutral-450 uppercase tracking-wider font-mono flex items-center gap-1.5">
-                  <BookOpen className="w-4 h-4 text-orange-500" />
+                  <BookOpen className="w-4 h-4 text-[#0099FF]" />
                   {isFr ? 'Contenu de la Leçon' : 'E-Book Reading'}
                 </h4>
 
@@ -149,7 +149,7 @@ export const SpartanSchool: React.FC = () => {
                       key={index} 
                       className="flex items-start gap-3 bg-[#0A0A0B] p-4 border border-white/5 rounded-xl"
                     >
-                      <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-orange-600/10 text-xs font-mono font-bold text-orange-500 shrink-0">
+                      <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-[#007ACC]/10 text-xs font-mono font-bold text-[#0099FF] shrink-0">
                         0{index + 1}
                       </span>
                       <p className="text-xs text-neutral-300 leading-relaxed font-sans pt-0.5">

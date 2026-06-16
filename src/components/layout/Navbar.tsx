@@ -55,12 +55,12 @@ export const Navbar: React.FC = () => {
         <div className="space-y-6">
           <div className={`p-4 rounded-xl border ${
             user.theme === 'dark'
-              ? 'bg-gradient-to-br from-orange-600/20 to-transparent border-orange-500/20'
-              : 'bg-orange-50/50 border-orange-200'
+              ? 'bg-gradient-to-br from-[#007ACC]/20 to-transparent border-[#0099FF]/20'
+              : 'bg-[#E5F4FF]/50 border-[#99DAFF]'
           }`}>
             <div className="flex items-center gap-2 mb-2">
-              <ShieldCheck className="w-4 h-4 text-orange-500" />
-              <span className="font-mono text-xs text-orange-500 font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-[#0099FF]" />
+              <span className="font-mono text-xs text-[#0099FF] font-bold uppercase tracking-wider">
                 {isFr ? 'Mental Spartan' : 'Spartan Mental'}
               </span>
             </div>
@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
                   }}
                   className={`w-full flex items-center justify-between px-4 py-3 rounded uppercase tracking-wider font-semibold text-xs transition-all duration-150 cursor-pointer ${
                     isActive
-                      ? 'bg-orange-600 text-white shadow-[0_4px_12px_rgba(249,115,22,0.25)] font-bold'
+                      ? 'bg-[#007ACC] text-white shadow-[0_4px_12px_rgba(0,153,255,0.25)] font-bold'
                       : (user.theme === 'dark'
                           ? 'text-neutral-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5'
                           : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 border border-transparent hover:border-stone-200')
@@ -141,7 +141,7 @@ export const Navbar: React.FC = () => {
               }}
               className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all duration-150 relative cursor-pointer ${
                 isActive 
-                  ? 'text-orange-500 font-black' 
+                  ? 'text-[#0099FF] font-black'
                   : 'text-neutral-400 hover:text-neutral-200'
               }`}
             >
@@ -150,7 +150,7 @@ export const Navbar: React.FC = () => {
                 {isFr ? item.labelFr : item.labelEn}
               </span>
               {isActive && (
-                <span className="absolute bottom-0 h-1 w-5 rounded-full bg-orange-500" />
+                <span className="absolute bottom-0 h-1 w-5 rounded-full bg-[#0099FF]" />
               )}
             </button>
           );

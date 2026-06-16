@@ -75,7 +75,7 @@ export const Dashboard: React.FC = () => {
 
   // Discipline Status Labeling
   const getDisciplineLabel = (score: number) => {
-    if (score >= 90) return { label: isFr ? 'Spartiate Légendaire' : 'Legendary Spartan', color: 'text-orange-400 bg-orange-950/40 border-orange-850' };
+    if (score >= 90) return { label: isFr ? 'Spartiate Légendaire' : 'Legendary Spartan', color: 'text-[#33AAFF] bg-[#001A33]/40 border-[#002B52]' };
     if (score >= 75) return { label: isFr ? 'Vétéran Discipliné' : 'Disciplined Veteran', color: 'text-emerald-400 bg-emerald-950/40 border-emerald-800' };
     if (score >= 50) return { label: isFr ? 'Parieur Rationnel' : 'Rational Bettor', color: 'text-stone-300 bg-white/5 border-white/5' };
     return { label: isFr ? 'Flambeur Impulsif' : 'Impulsive Gambler', color: 'text-rose-400 bg-rose-950/40 border-rose-800' };
@@ -134,8 +134,8 @@ export const Dashboard: React.FC = () => {
         <div className="bg-[#131316] border border-white/5 p-5 rounded-2xl flex flex-col justify-between space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="p-2 rounded bg-orange-600/10 text-orange-500">
-                <Trophy className="w-5 h-5 text-orange-500" />
+              <span className="p-2 rounded bg-[#007ACC]/10 text-[#0099FF]">
+                <Trophy className="w-5 h-5 text-[#0099FF]" />
               </span>
               <div>
                 <h3 className="font-bold text-white text-sm">
@@ -148,7 +148,7 @@ export const Dashboard: React.FC = () => {
             </div>
             <button
               onClick={() => setActiveTab('profile')}
-              className="text-[11px] text-orange-500 hover:underline font-mono"
+              className="text-[11px] text-[#0099FF] hover:underline font-mono"
             >
               {isFr ? 'Ajuster' : 'Adjust'}
             </button>
@@ -235,7 +235,7 @@ export const Dashboard: React.FC = () => {
                     cx="28"
                     cy="28"
                     r={circleRadius}
-                    className="text-orange-500 transition-all duration-500 ease-out"
+                    className="text-[#0099FF] transition-all duration-500 ease-out"
                     strokeWidth={circleStroke}
                     strokeDasharray={circleCircumference}
                     strokeDashoffset={strokeDashoffset}
@@ -275,8 +275,8 @@ export const Dashboard: React.FC = () => {
         <div className="bg-[#131316] border border-white/5 p-5 rounded-2xl flex flex-col justify-between space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="p-2 rounded bg-orange-600/10 text-orange-500">
-                <ShieldAlert className="w-5 h-5 text-orange-500" />
+              <span className="p-2 rounded bg-[#007ACC]/10 text-[#0099FF]">
+                <ShieldAlert className="w-5 h-5 text-[#0099FF]" />
               </span>
               <div>
                 <h3 className="font-bold text-white text-sm">
@@ -295,7 +295,7 @@ export const Dashboard: React.FC = () => {
           <div className="space-y-2 pt-2">
             <div className="flex items-baseline justify-between font-mono">
               <div className="flex items-center gap-1">
-                <span className="text-3xl font-black text-orange-500">{disciplineScore}</span>
+                <span className="text-3xl font-black text-[#0099FF]">{disciplineScore}</span>
                 <span className="text-neutral-500 text-sm">/ 100</span>
               </div>
               <span className="text-xs text-neutral-500">
@@ -306,7 +306,7 @@ export const Dashboard: React.FC = () => {
             {/* Elegant full height progress bar */}
             <div className="w-full bg-[#0A0A0B] h-3 rounded-full overflow-hidden border border-white/5">
               <div 
-                className="bg-gradient-to-r from-orange-600 to-orange-400 h-full transition-all duration-750 ease-out"
+                className="bg-gradient-to-r from-[#007ACC] to-[#33AAFF] h-full transition-all duration-750 ease-out"
                 style={{ width: `${disciplineScore}%` }}
               />
             </div>
@@ -344,11 +344,11 @@ export const Dashboard: React.FC = () => {
       <div className="relative overflow-hidden bg-[#131316] border border-white/5 rounded-2xl p-5 md:p-6 shadow-md">
         
         {/* Glowing background accent */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-orange-500/10 to-transparent pointer-events-none rounded-r-2xl" />
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#0099FF]/10 to-transparent pointer-events-none rounded-r-2xl" />
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
           <div className="space-y-1.5 flex-1 max-w-2xl">
-            <span className="inline-block text-[9px] font-black text-orange-500 border border-orange-500/40 px-2 py-0.5 rounded uppercase tracking-widest font-mono">
+            <span className="inline-block text-[9px] font-black text-[#0099FF] border border-[#0099FF]/40 px-2 py-0.5 rounded uppercase tracking-widest font-mono">
               {ads[activeAd].tag}
             </span>
             <h3 className="text-lg font-bold uppercase italic text-white font-sans tracking-tight">
@@ -385,7 +385,7 @@ export const Dashboard: React.FC = () => {
               key={idx}
               onClick={() => setActiveAd(idx)}
               className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                idx === activeAd ? 'w-5 bg-orange-500' : 'w-1.5 bg-neutral-700'
+                idx === activeAd ? 'w-5 bg-[#0099FF]' : 'w-1.5 bg-neutral-700'
               }`}
             />
           ))}
@@ -400,7 +400,7 @@ export const Dashboard: React.FC = () => {
           </h3>
           <button
             onClick={() => setActiveTab('analyses')}
-            className="flex items-center gap-1 text-xs text-orange-500 hover:underline font-mono"
+            className="flex items-center gap-1 text-xs text-[#0099FF] hover:underline font-mono"
           >
             {isFr ? 'Voir toutes les analyses' : 'All analyses'}
             <ChevronRight className="w-4 h-4" />
@@ -415,7 +415,7 @@ export const Dashboard: React.FC = () => {
             return (
               <div 
                 key={match.id}
-                className="bg-[#131316] border border-white/5 hover:border-orange-500/30 rounded-2xl p-4 flex flex-col justify-between space-y-4 transition-all duration-200"
+                className="bg-[#131316] border border-white/5 hover:border-[#0099FF]/30 rounded-2xl p-4 flex flex-col justify-between space-y-4 transition-all duration-200"
               >
                 <div>
                   {/* Category Header */}
@@ -456,8 +456,8 @@ export const Dashboard: React.FC = () => {
                   {/* Recommendation block / Premium Lock */}
                   {isPremiumLocked ? (
                     <div className="bg-[#0A0A0B] border border-white/5 rounded-xl p-3 mt-4 text-center space-y-2">
-                      <div className="flex justify-center text-orange-500">
-                        <Sparkles className="w-5 h-5 text-orange-500" />
+                      <div className="flex justify-center text-[#0099FF]">
+                        <Sparkles className="w-5 h-5 text-[#0099FF]" />
                       </div>
                       <p className="text-[10px] font-mono text-neutral-400 leading-relaxed">
                         {isFr 
@@ -470,7 +470,7 @@ export const Dashboard: React.FC = () => {
                       <span className="text-[9px] font-bold text-neutral-500 block uppercase tracking-wider">
                         {isFr ? 'RECOMMANDATION SPARTAN' : 'SPARTAN PICK'}
                       </span>
-                      <p className="text-xs font-extrabold text-orange-500 leading-snug">
+                      <p className="text-xs font-extrabold text-[#0099FF] leading-snug">
                         {match.prediction}
                       </p>
                       <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 pt-1.5 border-t border-white/5">
@@ -494,8 +494,8 @@ export const Dashboard: React.FC = () => {
                   }}
                   className={`w-full py-2.5 rounded text-xs font-bold tracking-wider uppercase transition-all duration-150 cursor-pointer flex items-center justify-center gap-1.5 ${
                     isPremiumLocked
-                      ? 'bg-orange-500/10 hover:bg-orange-500/20 text-orange-500 border border-orange-500/30'
-                      : 'bg-white/5 border border-white/10 hover:bg-orange-600 hover:text-white text-neutral-200'
+                      ? 'bg-[#0099FF]/10 hover:bg-[#0099FF]/20 text-[#0099FF] border border-[#0099FF]/30'
+                      : 'bg-white/5 border border-white/10 hover:bg-[#007ACC] hover:text-white text-neutral-200'
                   }`}
                 >
                   {isPremiumLocked ? (

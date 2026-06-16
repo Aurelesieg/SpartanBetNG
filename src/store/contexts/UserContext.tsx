@@ -25,8 +25,14 @@ export const UserProvider: React.FC<{ children: ReactNode; onToast: (msg: string
 
   const [user, setUser] = useState<UserProfile>(() => {
     const saved = localStorage.getItem(L_USER);
-    if (saved) return JSON.parse(saved);
-    return { name: 'Spartan', role: 'free', theme: 'dark', language: 'fr' };
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Migrate: if no explicit language set, default to 'en'
+      if (!parsed.language) parsed.language = 'en';
+      return parsed;
+    }
+    return { name: 'Spartan', role: 'free', theme: 'dark', language: 'en',
+             hasCompletedOnboarding: false };
   });
 
   const [isOnboardingActive, setOnboardingActive] = useState(() => {
