@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../store/contexts/AuthContext';
 import { ShieldCheck, ArrowRight, UserPlus, LogIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { isSupabaseConfigured } from '../../services/supabase';
 
 export const AuthPage: React.FC = () => {
   const { signIn, signUp } = useAuth();
@@ -37,7 +38,7 @@ export const AuthPage: React.FC = () => {
         setError(res.error);
       } else {
         // Force switch to login or show success message depending on Supabase email confirmation settings
-        setError('Account created. You can now sign in (or check your email).');
+        setError('Account created. You can now sign in (or check your email for confirmation).');
         setIsLogin(true);
         setPassword('');
         setConfirmPassword('');
@@ -58,6 +59,20 @@ export const AuthPage: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-sm relative z-10"
       >
+        {!isSupabaseConfigured && (
+          <div className="mb-4 p-3 bg-rose-500/15 border border-rose-500/30
+                          rounded-xl text-center">
+            <p className="text-[10px] font-mono font-bold text-rose-400
+                          uppercase tracking-wider">
+              ⚠️ Configuration Required
+            </p>
+            <p className="text-[10px] font-mono text-rose-300/70 mt-1">
+              Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
+              to your Vercel environment variables.
+            </p>
+          </div>
+        )}
+
         {/* Official SpartanBet Logo — vertical version for auth */}
         <div className="flex flex-col items-center mb-6">
           <img
@@ -172,7 +187,7 @@ export const AuthPage: React.FC = () => {
               className="w-full py-3 mt-2 rounded-xl bg-[#007ACC] hover:bg-[#0099FF] disabled:opacity-50 disabled:cursor-wait text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(0,153,255,0.2)] hover:shadow-[0_0_25px_rgba(0,153,255,0.3)] flex items-center justify-center gap-2"
             >
               {loading ? (
-                <span className="animate-pulse">{isLogin ? 'Signing in...' : 'Creating...'}</span>
+                <span className="animate-pulse">{isLogin ? 'Signing in...' : 'Creating account...'}</span>
               ) : (
                 <>
                   {isLogin ? 'Enter the HQ' : 'Join the Ranks'}

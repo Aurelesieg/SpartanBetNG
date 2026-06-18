@@ -20,42 +20,63 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Initial fetch of session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    });
+    const init = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+        setUser(session?.user ?? null);
+      } catch (err) {
+        console.error('[SpartanBet] getSession error:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    init();
 
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        setIsLoading(false);
+      }
+    );
 
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string, name: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          name
-        }
-      }
-    });
-    return { error: error?.message ?? null };
+  const signUp = async (
+    email: string, password: string, name: string
+  ): Promise<{ error: string | null }> => {
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { name } }
+      });
+      return { error: error?.message ?? null };
+    } catch (err: any) {
+      console.error('[SpartanBet] signUp error:', err);
+      return {
+        error: 'Connection failed. Check your internet and try again.'
+      };
+    }
   };
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    return { error: error?.message ?? null };
+  const signIn = async (
+    email: string, password: string
+  ): Promise<{ error: string | null }> => {
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      return { error: error?.message ?? null };
+    } catch (err: any) {
+      console.error('[SpartanBet] signIn error:', err);
+      return {
+        error: 'Connection failed. Check your internet and try again.'
+      };
+    }
   };
 
   const signOut = async () => {

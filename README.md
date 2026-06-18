@@ -1,20 +1,32 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# SpartanBet NG
 
-# Run and deploy your AI Studio app
+Sports tipster platform — Nigeria market.
 
-This contains everything you need to run your app locally.
+## Setup
 
-View your app in AI Studio: https://ai.studio/apps/4a09ed71-4267-4618-8aef-a85d595990b0
+### 1. Clone and install
+  git clone https://github.com/Aurelesieg/SpartanBetNG.git
+  cd SpartanBetNG
+  npm install
 
-## Run Locally
+### 2. Environment variables
+Create a .env.local file at the project root:
+  VITE_SUPABASE_URL=https://pgnugkoxuhsyslhcgchy.supabase.co
+  VITE_SUPABASE_ANON_KEY=your_anon_key_here
+  VITE_API_FOOTBALL_KEY=
 
-**Prerequisites:**  Node.js
+### 3. Run locally
+  npm run dev
 
+## Vercel Deployment
+In Vercel → Project → Settings → Environment Variables, add:
+  VITE_SUPABASE_URL
+  VITE_SUPABASE_ANON_KEY
+Select all environments (Production, Preview, Development).
+After adding variables, redeploy manually.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Tech Stack
+React 18 + TypeScript + Vite + Tailwind CSS v4
+Supabase (Auth + Database + Realtime)
+React Router v7
+Framer Motion
